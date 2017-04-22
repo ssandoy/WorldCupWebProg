@@ -47,36 +47,80 @@ if(isset($_POST["regAdmin"]))
 
 if(isset($_POST["regAthlete"]))
 {
-    #TODO: regAthlete via POST-calls and call save_to_DB-method.
-    $lagreFornavn = $_POST["lagreFornavn"];
-    $lagrePassord = $_POST["lagrePassord"];
+    #regAthelete via POST-calls and call save_to_DB-method.
+    $firstname = $db->real_escape_string($_POST["firstname"]);
+    $lastname = $db->real_escape_string($_POST["lastname"]);
+    $age = $db->real_escape_string($_POST["age"]);
+    $nationality = $db->real_escape_string($_POST["nationality"]);
 
-    $sql = "Update ansatt Set Passord = Password('$lagrePassord') where Fornavn='$lagreFornavn'";
-    $res = $db->query($sql);
-    if($db->affected_rows>0)
-    {
-        echo "Oppdatering OK";
+    $athlete = new Athlete($firstname, $lastname, $age, $nationality);
+
+    $okTransaction = true;
+    if (!$athlete->save_to_db($db) || $db->affected_rows == 0) {
+        $okTransaction = false;
     }
-    else
-    {
-        echo "Oppdatering ikke OK";
+    if ($okTransaction) {
+        $db->commit();
+    } else {
+        $db->rollback();
+        ob_start();
+        //header("Location: feilmelding.html");
+        ob_flush();
     }
+    //mysqli_close($db); #TODO: LUKKE HER?
 }
 
 if(isset($_POST["regEvent"]))
 {
-    #TODO: regEvent via POST-calls and call save_to_DB-method.
-    $lagreFornavn = $_POST["lagreFornavn"];
-    $lagrePassord = $_POST["lagrePassord"];
+    #regEvent via POST-calls and call save_to_DB-method.
+    $description = $_POST["description"];
+    $datetime = $_POST["datetime"];
 
-    $sql = "Update ansatt Set Passord = Password('$lagrePassord') where Fornavn='$lagreFornavn'";
-    $res = $db->query($sql);
-    if($db->affected_rows>0)
-    {
-        echo "Oppdatering OK";
+    $event = new Event($description, $datetime);
+
+    $okTransaction = true;
+    if (!$event->save_to_db($db) || $db->affected_rows == 0) {
+        $okTransaction = false;
     }
-    else
-    {
-        echo "Oppdatering ikke OK";
+    if ($okTransaction) {
+        $db->commit();
+    } else {
+        $db->rollback();
+        ob_start();
+        //header("Location: feilmelding.html");
+        ob_flush();
     }
+    //mysqli_close($db); #TODO: LUKKE HER?
 }
+
+if(isset($_POST["regSpectator"]))
+{
+    #regAdmin via POST-calls and call save_to_DB-method.
+    $firstname = $db->real_escape_string($_POST["firstname"]);
+    $lastname = $db->real_escape_string($_POST["lastname"]);
+    $phoneNr = $db->real_escape_string($_POST["phoneNr"]);
+    $email = $db->real_escape_string($_POST["email"]);
+    $username = $db->real_escape_string($_POST["username"]);
+    $password = $db->real_escape_string($_POST["password"]);
+
+
+    $spectator = new Spectator($firstname, $lastname, $phoneNr, $email, $username, $password);
+
+    $okTransaction = true;
+    if (!$spectator->save_to_db($db) || $db->affected_rows == 0) {
+        $okTransaction = false;
+    }
+    if ($okTransaction) {
+        $db->commit();
+    } else {
+        $db->rollback();
+        ob_start();
+        //header("Location: feilmelding.html");
+        ob_flush();
+    }
+    //mysqli_close($db); #TODO: LUKKE HER?
+}
+
+echo "HEIhhsh";
+
+?>
