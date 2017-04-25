@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!-- Locale CSS file -->
+    <link rel='stylesheet' type='text/css' href='assets/stylesheet.css'/>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed" rel="stylesheet">
+    <!-- Metadata -->
+    <title>Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="Sindre Beba">
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar">
+    <img src="assets/images/logo.png" />
+    <ul class="nav navbar-nav navbar-right">
+        <li class="active"><a href="index.html">FRONT PAGE</a></li>
+        <li><a href="index.html">MY PAGE</a></li>
+        <li><a href="filters.php">ATHLETES</a></li>
+        <li><a href="rawdata.php">EVENTS</a></li>
+        <li><a href="generate.php">LOG OUT</a></li>
+    </ul>
+</nav>
+<!-- Container -->
+<div class="row" id="container">
+    <!-- Carousel -->
+    <div id="myCarousel" class="carousel slide text-center" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+            <li data-target="#myCarousel" data-slide-to="3"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <div class="row">
+                    <img src="assets/images/carousel1.png">
+                </div>
+                <div class="row red-row">
+                    <h4>FEBRUARY 19TH - MARCH 3RD 2019</h4>
+                </div>
+            </div>
+            <div class="item">
+                <div class="row">
+                    <img src="assets/images/carousel2.png">
+                </div>
+                <div class="row red-row">
+                    <h4>FIS NORDIC WORLD SKI CHAMPIONSHIPS - SEEFELD 2019</h4>
+                </div>
+            </div>
+            <div class="item">
+                <div class="row">
+                    <img src="assets/images/carousel3.png">
+                </div>
+                <div class="row red-row">
+                    <h4>FEBRUARY 19TH - MARCH 3RD 2019</h4>
+                </div>
+            </div>
+            <div class="item">
+                <div class="row">
+                    <img src="assets/images/carousel4.png">
+                </div>
+                <div class="row red-row">
+                    <h4>FIS NORDIC WORLD SKI CHAMPIONSHIPS - SEEFELD 2019</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Second row -->
+    <!--<div class="row text-center" id="row2">
+        <h4>February 19th - March 3rd 2019</h4>
+    </div>-->
+    <!-- Third row -->
+    <div class="row">
+        <div class="col-sm-5 text-center">
+            <h2>NEXT EVENT</h2>
+            <p>Women's 5km Classical Qualification</p>
+            <h4>Cross Country</h4>
+            <p>February 19th 2019 - 14:00</p>
+        </div>
+        <div class="col-sm-7 text-center">
+            <h2>SEEFELD</h2>
+            <p>Seefeld has played host to the Olympic Nordic disciplines no fewer than three times – in 1964, 1976 and
+                2012. It was the venue of the FIS Nordic World Ski Championships in 1985, and organises the Nordic
+                World Cup on an annual basis. Following the success of 1985, the Olympiaregion Seefeld has been
+                selected as the venue for the Nordic World Ski Championships in 2019, and the region is incredibly
+                proud to be able to host the prestigious Nordic sporting event once more.</p>
+        </div>
+        <!--<div class="col-sm-4">
+            <h2>LOG IN / CREDENTIALS</h2>
+            <form>
+                <p>Username:</p>
+                <input class="form-control" type="text">
+                <p>Password:</p>
+                <input class="form-control" type="password">
+            </form>
+        </div>-->
+    </div>
+    <div class="row text-center">
+        <div class="col-sm-12">
+            <h4>(C) 2017 Sindre Beba and Sander Fagerland Sandøy</h4>
+        </div>
+    </div>
+</div>
+</body>
+</html>

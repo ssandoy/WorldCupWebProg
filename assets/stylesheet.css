@@ -1,0 +1,82 @@
+body {
+    background-color: #F5F5F5;
+    background-image: url("images/seefeld.jpg");
+}
+
+p, .navbar li a, h1, h2, h3, h4 {
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+#container {
+    background-color: #EEE;
+    min-height: 650px;
+    margin: 0 auto;
+    max-width: 1024px;
+}
+
+/*
+ *
+ * STYLING OF THE NAVBAR
+ *
+ */
+
+.navbar {
+    background-color: #ED1D36;
+    border: 0;
+    border-radius: 0;
+    font-size: 12px !important;
+    margin: 0 auto;
+    max-width: 1024px;
+    letter-spacing: 3px;
+    z-index: 1;
+}
+
+.navbar img {
+}
+
+.navbar-brand, .navbar-right {
+    margin: 0;
+}
+
+.navbar li a, .navbar-brand {
+    color: white !important;
+}
+
+.navbar-nav li.active a {
+    color: #ED1D36 !important;
+    background-color: #FFF !important;
+}
+
+.navbar-nav li.active a:hover {
+    color: #ED1D36 !important;
+    background-color: #FFF !important;
+}
+
+.navbar-nav li a:hover {
+    color: #FFF !important;
+    background-color: #FF4F68 !important;
+}
+
+/*
+ *
+ * CAROUSEL
+ *
+ */
+
+.row {
+    margin: 0;
+    width: 100%;
+}
+
+.carousel img {
+    width: 100%;
+}
+
+.carousel-indicators {
+    margin-bottom: 30px;
+}
+
+.red-row {
+    background-color: #ED1D36;
+    color: #FFF;
+}
