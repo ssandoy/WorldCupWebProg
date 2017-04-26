@@ -136,8 +136,7 @@ class Athlete {
     function getNationality() {
         return $this->nationality;
     }
-
-    #TODO: Implementere lagring i Event
+    
     public function save_to_db($db) {
         $sql = "INSERT INTO Athlete (firstname,lastname,age,nationality) ";
         $sql .= "VALUES ('$this->firstname','$this->lastname','$this->age','$this->nationality')";
@@ -177,3 +176,47 @@ class Event {
         return $result;
     }
 }
+
+class EventAthlete {
+    private $event;
+    private $athlete;
+
+    function __construct($ev, $at) {
+        $this->event = $ev;
+        $this->athlete = $at;
+    }
+
+    public function save_to_db($db) {
+        $sql = "INSERT INTO EventAthlete (Event,Athlete) ";
+        $sql .= "VALUES ('$this->event','$this->athlete')";
+        $result = $db->query($sql);
+        if (!$result) {
+            trigger_error($db->error);
+        }
+        return $result;
+    }
+
+}
+
+class EventSpectator {
+    private $event;
+    private $spectator;
+
+    function __construct($ev, $sp) {
+        $this->event = $ev;
+        $this->spectator = $sp;
+    }
+
+    public function save_to_db($db) {
+        $sql = "INSERT INTO EventAthlete (Event,Spectator) ";
+        $sql .= "VALUES ('$this->event','$this->spectator')";
+        $result = $db->query($sql);
+        if (!$result) {
+            trigger_error($db->error);
+        }
+        return $result;
+    }
+
+}
+
+?>
