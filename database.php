@@ -168,7 +168,7 @@ if(isset($_POST["regEventSpectator"]))
         //header("Location: feilmelding.html");
         ob_flush();
     }
-    mysqli_close($db); #TODO: LUKKE HER?
+    //mysqli_close($db); #TODO: LUKKE HER?
 }
 
 
