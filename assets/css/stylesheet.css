@@ -1,6 +1,7 @@
 body {
     background-color: #F5F5F5;
-    background-image: url("images/seefeld.jpg");
+    background-image: url("../images/seefeld.jpg");
+    background-repeat: no-repeat;
 }
 
 p, .navbar li a, h1, h2, h3, h4 {
@@ -9,9 +10,63 @@ p, .navbar li a, h1, h2, h3, h4 {
 
 #container {
     background-color: #EEE;
-    min-height: 650px;
     margin: 0 auto;
     max-width: 1024px;
+    padding: 15px;
+}
+
+#frontpage-container {
+    background-color: #EEE;
+    margin: 0 auto;
+    max-width: 1024px;
+}
+
+footer {
+    background-color: #ED1D36;
+    height: 44px;
+    margin-top: 40px;
+    padding: 15px 0;
+    text-align: center;
+}
+
+footer p {
+    color: #FFF;
+    font-size: 14px;
+    margin: 0;
+}
+
+form p {
+    margin: 0;
+}
+
+input {
+    margin: 10px 0;
+}
+
+.white-cell {
+    background-color: #FCFCFC;
+    border: 1px solid #CCC;
+    border-radius: 4px;
+    margin: 0;
+    padding: 15px;
+}
+
+select, option {
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+select {
+    font-size: 30px !important;
+    height: 60px !important;
+}
+
+option {
+    font-size: 14px !important;
+}
+
+.compact-column {
+    margin: 0;
+    padding: 5px;
 }
 
 /*

@@ -1,21 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ssandoy
- * Date: 06.04.2017
- * Time: 14.08
- */
 
 include("classes.php");
+
 $db = new mysqli("student.cs.hioa.no", "s236305", "", "s236305");
 if ($db->connect_error) {
     echo "Feil i databasetilknytningen";
     trigger_error($db->connect_error);
 }
 
-
-if(isset($_POST["regAdmin"]))
-{
+function registerAdmin() {
     #regAdmin via POST-calls and call save_to_DB-method.
     $firstname = $db->real_escape_string($_POST["firstname"]);
     $lastname = $db->real_escape_string($_POST["lastname"]);
@@ -47,8 +40,7 @@ if(isset($_POST["regAdmin"]))
     //mysqli_close($db); #TODO: LUKKE HER?
 }
 
-if(isset($_POST["regAthlete"]))
-{
+function registerAthlete() {
     #regAthelete via POST-calls and call save_to_DB-method.
     $firstname = $db->real_escape_string($_POST["firstname"]);
     $lastname = $db->real_escape_string($_POST["lastname"]);
@@ -72,8 +64,7 @@ if(isset($_POST["regAthlete"]))
     //mysqli_close($db); #TODO: LUKKE HER?
 }
 
-if(isset($_POST["regEvent"]))
-{
+function registerEvent() {
     #regEvent via POST-calls and call save_to_DB-method.
     $description = $db->real_escape_string($_POST["description"]);
     $datetime = $db->real_escape_string($_POST["datetime"]);
@@ -95,8 +86,7 @@ if(isset($_POST["regEvent"]))
     //mysqli_close($db); #TODO: LUKKE HER?
 }
 
-if(isset($_POST["regSpectator"]))
-{
+function registerSpectator() {
     #regSpecator via POST-calls and call save_to_DB-method.
     $firstname = $db->real_escape_string($_POST["firstname"]);
     $lastname = $db->real_escape_string($_POST["lastname"]);
@@ -125,8 +115,7 @@ if(isset($_POST["regSpectator"]))
 }
 
 
-if(isset($_POST["regEventAthlete"]))
-{
+function registerEventAthlete() {
     #regEventAthlete via POST-calls and call save_to_DB-method.
     $athleteID = $db->real_escape_string($_POST["AthleteID"]);
     $eventID = $db->real_escape_string($_POST["EventID"]);
@@ -148,8 +137,7 @@ if(isset($_POST["regEventAthlete"]))
     //mysqli_close($db); #TODO: LUKKE HER?
 }
 
-if(isset($_POST["regEventSpectator"]))
-{
+function registerEventSpectator() {
     #regEventSpectator via POST-calls and call save_to_DB-method.
     $spectatorID = $db->real_escape_string($_POST["SpectatorID"]);
     $eventID = $db->real_escape_string($_POST["EventID"]);
@@ -172,8 +160,12 @@ if(isset($_POST["regEventSpectator"]))
 }
 
 
-if(isset($_GET["listAllAthletes"]))
-{
+function populateAthletesTable() {
+    $db = new mysqli("student.cs.hioa.no", "s236305", "", "s236305");
+    if ($db->connect_error) {
+        echo "Feil i databasetilknytningen";
+        trigger_error($db->connect_error);
+    }
 
     $sql = "Select firstname, lastname, age, nationality from Athlete ";
     $resultat = $db->query($sql);
@@ -185,7 +177,10 @@ if(isset($_GET["listAllAthletes"]))
         for ($i=0;$i<$antallRader;$i++)
         {
             $rad = $resultat->fetch_object();
-            echo $rad->firstname." ".$rad->lastname." ".$rad->age." ".$rad->nationality."<br/>";
+            echo "<td>$rad->firstname</td>
+                  <td>$rad->lastname</td>
+                  <td>$rad->age</td>
+                  <td>$rad->nationality</td>";
         }
 
     }
@@ -196,8 +191,7 @@ if(isset($_GET["listAllAthletes"]))
     $db->close();
 }
 
-if(isset($_GET["listAllSpectators"]))
-{
+function listAllSpectators() {
 
     $sql = "Select username, firstname, lastname, phonenumber, email from Spectator ";
     $resultat = $db->query($sql);
@@ -220,8 +214,7 @@ if(isset($_GET["listAllSpectators"]))
     $db->close();
 }
 
-if(isset($_GET["listEventAthletes"]))
-{
+function listEventAthletes() {
     $eventID = $_GET["eventID"];
     $sql = "Select A.firstname, A.lastname, A.age, A.nationality from Athlete as A";
     $sql .= "JOIN EventAthlete ON A.AthleteID = EventAthlete.Athlete WHERE EventAthlete.Event LIKE ".$eventID;
@@ -245,6 +238,8 @@ if(isset($_GET["listEventAthletes"]))
     $db->close();
 }
 
-
+function getNextEvent() {
+    echo "<p>There are no more events</p>";
+}
 
 ?>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("database.php");
+include("assets/database.php");
 ?>
 <html>
 
