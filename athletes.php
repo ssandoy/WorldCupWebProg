@@ -16,6 +16,22 @@
     include("assets/database.php");
     include("assets/functions.php");
     ?>
+    <!-- JavaScript -->
+    <script>
+        $(document).ready(function () {
+            $("#eventSelect").change(function () {
+                value = $("#eventSelect").val();
+                $.ajax({
+                    url: "assets/ajax.php",
+                    type: "post",
+                    data: {eventID: value},
+                    success: function (response) {
+                        $("#athleteTable").html(response);
+                    }
+                });
+            });
+        });
+    </script>
     <!-- Metadata -->
     <title>WSC - Seefeld 2019</title>
     <meta charset="UTF-8">
@@ -24,32 +40,38 @@
 <body>
 <!-- Navbar -->
 <nav class="navbar">
-    <img src="assets/images/logo.png" />
+    <img src="assets/images/logo.png"/>
     <ul class="nav navbar-nav navbar-right">
         <li><a href="index.php">FRONT PAGE</a></li>
-        <li><a href='admin.php'>ADMIN</a></li>
-        <li class="active"><a href='athletes.php'>ATHLETES</a></li>
-        <li><a href='events.php'>EVENTS</a></li>
-        <li><a href='login.php'>LOG OUT</a></li>
+        <li><a href="mypage.php">MY PAGE</a></li>
+        <li><a href="admin.php">ADMIN</a></li>
+        <li class="active"><a href="athletes.php">ATHLETES</a></li>
+        <li><a href="events.php">EVENTS</a></li>
+        <li><a href="login.php">LOG OUT</a></li>
     </ul>
 </nav>
 <!-- Container -->
 <div class="row" id="container">
+    <form action="" method="POST">
+        <select class="form-control" id="eventSelect">
+            <option value='0'>All events</option>
+            <?php populateEventsDropdown(); ?>
+        </select>
+    </form>
     <div class="col-sm-12 compact-column">
         <div class="white-cell">
             <table class="table">
                 <thead>
-                    <tr>
-                        <th>Firstname</th>
-                        <th>Lastname</th>
-                        <th>Age</th>
-                        <th>Nationality</th>
-                        <th>Gender</th>
-                        <th>Sport</th>
-                    </tr>
+                <tr>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>Age</th>
+                    <th>Nationality</th>
+                    <th>Gender</th>
+                    <th>Sport</th>
+                </tr>
                 </thead>
-                <tbody>
-                    <?php populateAthletesTable(); ?>
+                <tbody id="athleteTable">
                 </tbody>
             </table>
         </div>

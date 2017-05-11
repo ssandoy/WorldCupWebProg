@@ -2,6 +2,49 @@
 
 include("classes.php");
 
+// REGISTER
+
+// EDIT
+
+// DELETE
+
+// POPULATE
+
+
+
+function populateEventsDropdown() {
+    // Connect to database.
+    $db = new mysqli("student.cs.hioa.no", "s236305", "", "s236305");
+    if ($db->connect_error) {
+        trigger_error($db->connect_error);
+    }
+    // Execute SQL query.
+    $sql = "SELECT EventID, gender, sport, description, datetime "
+             . "FROM Event "
+             . "ORDER BY datetime ASC;";
+    $resultat = $db->query($sql);
+    // Echo out all rows.
+    if($db->affected_rows>0) {
+        $antallRader = $db->affected_rows;
+        for ($i=0;$i<$antallRader;$i++) {
+            $rad = $resultat->fetch_object();
+            $date = DateTime::createFromFormat("m-d-y", $rad->datetime);
+            $dateString = $date->format("l, F jS Y");
+            if ($rad->gender == "Male") {
+                $gender = "Men's";
+            } else {
+                $gender = "Women's";
+            }
+            echo "<option value='$rad->EventID'>$gender $rad->sport - $rad->description ($dateString)</option>";
+        }
+    }
+    $db->close();
+}
+
+// GET
+
+// OTHER
+
 $db = new mysqli("student.cs.hioa.no", "s236305", "", "s236305");
 if ($db->connect_error) {
     echo "Feil i databasetilknytningen";
@@ -157,38 +200,6 @@ function registerEventSpectator() {
         ob_flush();
     }
     //mysqli_close($db); #TODO: LUKKE HER?
-}
-
-
-function populateAthletesTable() {
-    $db = new mysqli("student.cs.hioa.no", "s236305", "", "s236305");
-    if ($db->connect_error) {
-        echo "Feil i databasetilknytningen";
-        trigger_error($db->connect_error);
-    }
-
-    $sql = "Select firstname, lastname, age, nationality from Athlete ";
-    $resultat = $db->query($sql);
-
-    if($db->affected_rows>0)
-    {
-        $antallRader = $db->affected_rows;
-        echo "Antall rader funnet : $antallRader <br/>";
-        for ($i=0;$i<$antallRader;$i++)
-        {
-            $rad = $resultat->fetch_object();
-            echo "<td>$rad->firstname</td>
-                  <td>$rad->lastname</td>
-                  <td>$rad->age</td>
-                  <td>$rad->nationality</td>";
-        }
-
-    }
-    else
-    {
-        echo "Fant ingen rader som oppfylte søket!";
-    }
-    $db->close();
 }
 
 function listAllSpectators() {

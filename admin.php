@@ -13,8 +13,8 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed" rel="stylesheet">
     <!-- PHP -->
     <?php
-        include("assets/database.php");
-        include("assets/functions.php");
+    include("assets/database.php");
+    include("assets/functions.php");
     ?>
     <!-- Metadata -->
     <title>WSC - Seefeld 2019</title>
@@ -22,7 +22,7 @@
     <meta name="author" content="Sindre Beba, Sander Sandøy">
     <!-- Form Selector JavaScript -->
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $("#athleteForm").hide();
             $("#eventForm").hide();
             $("#formSelect").change(function () {
@@ -45,107 +45,107 @@
     </script>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar">
-        <img src="assets/images/logo.png" />
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="index.php">FRONT PAGE</a></li>
-            <li class="active"><a href='admin.php'>ADMIN</a></li>
-            <li><a href='athletes.php'>ATHLETES</a></li>
-            <li><a href='events.php'>EVENTS</a></li>
-            <li><a href='login.php'>LOG OUT</a></li>
-        </ul>
-    </nav>
-    <!-- Container -->
-    <div class="row" id="container">
-        <?php validateAdminLogin() ?>
-        <select class="form-control" id="formSelect">
-            <option>Register new admin</option>
-            <option>Register new athlete</option>
-            <option>Register new event</option>
-        </select>
-        <div id="adminForm">
-            <form action="" method="POST">
-                <div class="col-sm-8 compact-column">
-                    <div class="white-cell">
-                        <p>First name:</p>
-                        <input class="form-control" name="firstname" type="text" />
-                        <p>Last name:</p>
-                        <input class="form-control" name="lastname" type="text" />
-                        <p>Phone number:</p>
-                        <input class="form-control" name="phoneNr" type="text" />
-                        <p>Username:</p>
-                        <input class="form-control" name="username" type="text" />
-                        <p>Password:</p>
-                        <input class="form-control" name="password" type="text" />
-                        <input class="btn" name="submitAdmin" type="submit" value="Register">
-                        <?php
-                            if (isset($_POST["submitAdmin"])) {
-                                registerAdmin();
-                            }
-                        ?>
-                    </div>
+<!-- Navbar -->
+<nav class="navbar">
+    <img src="assets/images/logo.png"/>
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="index.php">FRONT PAGE</a></li>
+        <li class="active"><a href='admin.php'>ADMIN</a></li>
+        <li><a href='athletes.php'>ATHLETES</a></li>
+        <li><a href='events.php'>EVENTS</a></li>
+        <li><a href='login.php'>LOG OUT</a></li>
+    </ul>
+</nav>
+<!-- Container -->
+<div class="row" id="container">
+    <?php validateAdminLogin() ?>
+    <select class="form-control" id="formSelect">
+        <option>Register new admin</option>
+        <option>Register new athlete</option>
+        <option>Register new event</option>
+    </select>
+    <div id="adminForm">
+        <form action="" method="POST">
+            <div class="col-sm-8 compact-column">
+                <div class="white-cell">
+                    <p>First name:</p>
+                    <input class="form-control" name="firstname" type="text"/>
+                    <p>Last name:</p>
+                    <input class="form-control" name="lastname" type="text"/>
+                    <p>Phone number:</p>
+                    <input class="form-control" name="phoneNr" type="text"/>
+                    <p>Username:</p>
+                    <input class="form-control" name="username" type="text"/>
+                    <p>Password:</p>
+                    <input class="form-control" name="password" type="text"/>
+                    <input class="btn" name="submitAdmin" type="submit" value="Register">
+                    <?php
+                    if (isset($_POST["submitAdmin"])) {
+                        registerAdmin();
+                    }
+                    ?>
                 </div>
-                <div class="col-sm-4 compact-column">
-                    <?php //getAdminInfo(); ?>
-                </div>
-            </form>
-        </div>
-        <div id="athleteForm">
-            <form action="" method="POST">
-                <div class="col-sm-8 compact-column">
-                    <div class="white-cell">
-                        <p>First name:</p>
-                        <input class="form-control" name="firstname" type="text" />
-                        <p>Last name:</p>
-                        <input class="form-control" name="lastname" type="text" />
-                        <p>Age:</p>
-                        <input class="form-control" name="age" type="text" />
-                        <p>Nationality:</p>
-                        <input class="form-control" name="nationality" type="text" />
-                        <p>Gender:</p>
-                        <input class="form-control" name="gender" type="text" />
-                        <p>Sport:</p>
-                        <input class="form-control" name="sport" type="text" />
-                        <input class="btn" name="submitAthlete" type="submit" value="Register">
-                        <?php
-                            if (isset($_POST["submitAthlete"])) {
-                                registerAthlete();
-                            }
-                        ?>
-                    </div>
-                </div>
-                <div class="col-sm-4 compact-column">
-                    <?php //getEventCheckboxes(); ?>
-                </div>
-            </form>
-        </div>
-        <div id="eventForm">
-            <form action="" method="POST">
-                <div class="col-sm-8 compact-column">
-                    <div class="white-cell">
-                        <p>Sport:</p>
-                        <input class="form-control" name="description" type="text" />
-                        <p>Description:</p>
-                        <input class="form-control" name="description" type="text" />
-                        <p>Gender:</p>
-                        <input class="form-control" name="description" type="text" />
-                        <p>Date:</p>
-                        <input class="form-control" name="datetime" type="text" />
-                        <input class="btn" name="submitEvent" type="submit" value="Register">
-                        <?php
-                            if (isset($_POST["submitEvent"])) {
-                                registerEvent();
-                            }
-                        ?>
-                    </div>
-                </div>
-                <div class="col-sm-4 compact-column">
-                    <?php //getAthleteCheckboxes(); ?>
-                </div>
-            </form>
-        </div>
+            </div>
+            <div class="col-sm-4 compact-column">
+                <?php //getAdminInfo(); ?>
+            </div>
+        </form>
     </div>
+    <div id="athleteForm">
+        <form action="" method="POST">
+            <div class="col-sm-8 compact-column">
+                <div class="white-cell">
+                    <p>First name:</p>
+                    <input class="form-control" name="firstname" type="text"/>
+                    <p>Last name:</p>
+                    <input class="form-control" name="lastname" type="text"/>
+                    <p>Age:</p>
+                    <input class="form-control" name="age" type="text"/>
+                    <p>Nationality:</p>
+                    <input class="form-control" name="nationality" type="text"/>
+                    <p>Gender:</p>
+                    <input class="form-control" name="gender" type="text"/>
+                    <p>Sport:</p>
+                    <input class="form-control" name="sport" type="text"/>
+                    <input class="btn" name="submitAthlete" type="submit" value="Register">
+                    <?php
+                    if (isset($_POST["submitAthlete"])) {
+                        registerAthlete();
+                    }
+                    ?>
+                </div>
+            </div>
+            <div class="col-sm-4 compact-column">
+                <?php //getEventCheckboxes(); ?>
+            </div>
+        </form>
+    </div>
+    <div id="eventForm">
+        <form action="" method="POST">
+            <div class="col-sm-8 compact-column">
+                <div class="white-cell">
+                    <p>Sport:</p>
+                    <input class="form-control" name="description" type="text"/>
+                    <p>Description:</p>
+                    <input class="form-control" name="description" type="text"/>
+                    <p>Gender:</p>
+                    <input class="form-control" name="description" type="text"/>
+                    <p>Date:</p>
+                    <input class="form-control" name="datetime" type="text"/>
+                    <input class="btn" name="submitEvent" type="submit" value="Register">
+                    <?php
+                    if (isset($_POST["submitEvent"])) {
+                        registerEvent();
+                    }
+                    ?>
+                </div>
+            </div>
+            <div class="col-sm-4 compact-column">
+                <?php //getAthleteCheckboxes(); ?>
+            </div>
+        </form>
+    </div>
+</div>
 </body>
 </html>
 
