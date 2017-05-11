@@ -63,6 +63,7 @@
         <div class="row">
             <div class="col-sm-5 text-center">
                 <h2>NEXT EVENT</h2>
+                <br />
                 <?php getNextEvent(); ?>
             </div>
             <div class="col-sm-7 text-center">

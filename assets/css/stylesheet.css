@@ -69,6 +69,10 @@ option {
     padding: 5px;
 }
 
+.nextEvent {
+    margin: 10px 0;
+}
+
 /*
  *
  * STYLING OF THE NAVBAR

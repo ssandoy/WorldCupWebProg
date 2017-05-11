@@ -239,7 +239,34 @@ function listEventAthletes() {
 }
 
 function getNextEvent() {
-    echo "<p>There are no more events</p>";
-}
+    $db = new mysqli("student.cs.hioa.no", "s236305", "", "s236305");
+    if ($db->connect_error) {
+        echo "Feil i databasetilknytningen";
+        trigger_error($db->connect_error);
+    }
 
+    $sql = "SELECT description, datetime, gender, sport "
+         . "FROM Event "
+         . "ORDER BY datetime ASC "
+         . "LIMIT 1";
+    $resultat = $db->query($sql);
+
+    if($db->affected_rows>0) {
+        $rad = $resultat->fetch_object();
+        $date = DateTime::createFromFormat("m-d-y", $rad->datetime);
+        $dateString = $date->format("l, F jS Y");
+        if ($rad->gender == "Male") {
+            $gender = "Men's";
+        } else {
+            $gender = "Women's";
+        }
+        echo "<h4 class='nextEvent'>$dateString</h4>"
+           . "<h3 class='nextEvent'>$rad->description</h3>"
+           . "<h4 class='nextEvent'>$gender $rad->sport</h4>";
+    } else {
+        echo "<p>There are no more events</p>";
+    }
+
+    $db->close();
+}
 ?>
