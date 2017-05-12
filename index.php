@@ -31,9 +31,9 @@
         </ul>
     </nav>
     <!-- Container -->
-    <div class="row" id="frontpage-container">
+    <div class="main-container">
         <!-- Carousel -->
-        <div id="myCarousel" class="carousel slide text-center" data-ride="carousel">
+        <div id="myCarousel" class="row carousel slide text-center" data-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
                 <li data-target="#myCarousel" data-slide-to="1"></li>
@@ -59,11 +59,10 @@
                 </div>
             </div>
         </div>
-        <!-- Third row -->
+        <!-- Next Event and Seefeld Info -->
         <div class="row">
             <div class="col-sm-5 text-center">
                 <h2>NEXT EVENT</h2>
-                <br />
                 <?php getNextEvent(); ?>
             </div>
             <div class="col-sm-7 text-center">

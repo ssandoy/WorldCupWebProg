@@ -22,36 +22,42 @@
     <meta name="author" content="Sindre Beba, Sander Sandøy">
 </head>
 <body>
-<!-- Navbar -->
-<nav class="navbar">
-    <img src="assets/images/logo.png" />
-    <ul class="nav navbar-nav navbar-right">
-        <li><a href="index.php">FRONT PAGE</a></li>
-        <li><a href='admin.php'>ADMIN</a></li>
-        <li><a href='athletes.php'>ATHLETES</a></li>
-        <li class="active"><a href='events.php'>EVENTS</a></li>
-        <li><a href='login.php'>LOG OUT</a></li>
-    </ul>
-</nav>
-<!-- Container -->
-<div class="row" id="container">
-    <div class="col-sm-12 compact-column">
-        <div class="white-cell">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Sport</th>
-                    <th>Description</th>
-                    <th>Gender</th>
-                    <th>Date</th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php populateEventsTable(); ?>
-                </tbody>
-            </table>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <img src="assets/images/logo.png" />
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="index.php">FRONT PAGE</a></li>
+            <li><a href="admin.php">ADMIN</a></li>
+            <li><a href="mypage.php">MY PAGE</a></li>
+            <li><a href="athletes.php">ATHLETES</a></li>
+            <li class="active"><a href="events.php">EVENTS</a></li>
+            <li><a href="login.php">LOG OUT</a></li>
+        </ul>
+    </nav>
+    <!-- Container -->
+    <div class="main-container">
+        <div class="row cell-container">
+            <div class="col-sm-12 compact-column">
+                <div class="white-cell">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Sport</th>
+                                <th>Description</th>
+                                <th>Gender</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php populateEventsTable(); ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
+        <footer>
+            <p>(C) 2017 Sindre Beba and Sander Fagerland Sandøy</p>
+        </footer>
     </div>
-</div>
 </body>
 </html>

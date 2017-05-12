@@ -178,13 +178,12 @@ function getNextEvent() {
         } else {
             $gender = "Women's";
         }
-        echo "<h4 class='nextEvent'>$dateString</h4>"
-            . "<h3 class='nextEvent'>$rad->description</h3>"
-            . "<h4 class='nextEvent'>$gender $rad->sport</h4>";
+        echo "<p>$dateString</p>"
+            . "<h4>$rad->description</h4>"
+            . "<p>$gender $rad->sport</p>";
     } else {
         echo "<p>There are no more events</p>";
     }
-
     $db->close();
 }
 

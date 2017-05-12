@@ -45,42 +45,48 @@
     </script>
 </head>
 <body>
-<!-- Navbar -->
-<nav class="navbar">
-    <img src="assets/images/logo.png" />
-    <ul class="nav navbar-nav navbar-right">
-        <li><a href="index.php">FRONT PAGE</a></li>
-        <li class="active"><a href='admin.php'>ADMIN</a></li>
-        <li><a href='athletes.php'>ATHLETES</a></li>
-        <li><a href='events.php'>EVENTS</a></li>
-        <li><a href='login.php'>LOG OUT</a></li>
-    </ul>
-</nav>
-<!-- Container -->
-<div class="row" id="container">
-    <div class="col-sm-8 compact-column">
-        <div class="white-cell">
-            <h2>Events you have checked in on:</h2>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Sport</th>
-                    <th>Description</th>
-                    <th>Gender</th>
-                    <th>Date</th>
-                </tr>
-                </thead>
-                <tbody>
-                    <?php populateEventSpectatorTable(); ?>
-                </tbody>
-            </table>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <img src="assets/images/logo.png" />
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="index.php">FRONT PAGE</a></li>
+            <li><a href="admin.php">ADMIN</a></li>
+            <li class="active"><a href="mypage.php">MY PAGE</a></li>
+            <li><a href="athletes.php">ATHLETES</a></li>
+            <li><a href="events.php">EVENTS</a></li>
+            <li><a href="login.php">LOG OUT</a></li>
+        </ul>
+    </nav>
+    <!-- Container -->
+    <div class="main-container">
+        <div class="row cell-container">
+            <div class="col-sm-8 compact-column">
+                <div class="white-cell">
+                    <h2>Events you have checked in on:</h2>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Sport</th>
+                                <th>Description</th>
+                                <th>Gender</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php populateEventSpectatorTable(); ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-sm-4 compact-column">
+                <div class="white-cell">
+                    <?php getSpectatorInfo(); ?>
+                </div>
+            </div>
         </div>
+        <footer>
+            <p>(C) 2017 Sindre Beba and Sander Fagerland Sandøy</p>
+        </footer>
     </div>
-    <div class="col-sm-4 compact-column">
-        <div class="white-cell">
-            <?php getSpectatorInfo(); ?>
-        </div>
-    </div>
-</div>
 </body>
 </html>

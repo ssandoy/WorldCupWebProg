@@ -6,7 +6,8 @@ if (!isset($_SESSION["loggedin"])) {
 
 function getNavbar() {
     if($_SESSION["loggedin"]) {
-        echo "<li><a href='mypage.php'>MY PAGE</a></li>
+        echo "<li><a href='admin.php'>ADMIN</a></li>
+              <li><a href='mypage.php'>MY PAGE</a></li>
               <li><a href='athletes.php'>ATHLETES</a></li>
               <li><a href='events.php'>EVENTS</a></li>
               <li><a href='login.php'>LOG OUT</a></li>";

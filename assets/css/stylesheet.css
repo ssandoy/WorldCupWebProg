@@ -14,17 +14,14 @@ p, h1, h2, h3, h4, option, select, .navbar li a {
     font-family: 'Roboto Condensed', sans-serif;
 }
 
-#container {
+.main-container {
     background-color: #EEE;
     margin: 0 auto;
     max-width: 1024px;
-    padding: 15px;
 }
 
-#frontpage-container {
-    background-color: #EEE;
-    margin: 0 auto;
-    max-width: 1024px;
+.cell-container {
+    padding: 15px;
 }
 
 .row {
@@ -32,10 +29,23 @@ p, h1, h2, h3, h4, option, select, .navbar li a {
     width: 100%;
 }
 
+.compact-column {
+    margin: 0;
+    padding: 5px;
+}
+
+.white-cell {
+    background-color: #FCFCFC;
+    border: 1px solid #CCC;
+    border-radius: 4px;
+    margin: 0;
+    padding: 15px;
+}
+
 footer {
     background-color: #ED1D36;
     height: 44px;
-    margin-top: 40px;
+    margin-top: 20px;
     padding: 15px 0;
     text-align: center;
 }
@@ -54,14 +64,6 @@ input, select {
     margin: 10px 0;
 }
 
-.white-cell {
-    background-color: #FCFCFC;
-    border: 1px solid #CCC;
-    border-radius: 4px;
-    margin: 0;
-    padding: 15px;
-}
-
 h2 select {
     font-size: 24px !important;
     height: 48px !important;
@@ -70,15 +72,6 @@ h2 select {
 
 h2 option {
     font-size: 14px;
-}
-
-.compact-column {
-    margin: 0;
-    padding: 5px;
-}
-
-.nextEvent {
-    margin: 10px 0;
 }
 
 /*
