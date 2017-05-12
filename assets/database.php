@@ -10,8 +10,6 @@ include("classes.php");
 
 // POPULATE
 
-
-
 function populateEventsDropdown() {
     // Connect to database.
     $db = new mysqli("student.cs.hioa.no", "s236305", "", "s236305");
@@ -38,6 +36,35 @@ function populateEventsDropdown() {
             echo "<option value='$rad->EventID'>$gender $rad->sport - $rad->description ($dateString)</option>";
         }
     }
+    $db->close();
+}
+
+function populateEventsTable() {
+    // Connect to database.
+    $db = new mysqli("student.cs.hioa.no", "s236305", "", "s236305");
+    if ($db->connect_error) {
+        trigger_error($db->connect_error);
+    }
+    // Execute SQL query.
+    $sql = "SELECT description, datetime, gender, sport "
+         . "FROM Event "
+         . "ORDER BY datetime ASC;";
+
+    $resultat = $db->query($sql);
+    // Echo out all rows.
+    if ($db->affected_rows > 0) {
+        $antallRader = $db->affected_rows;
+        for ($i = 0; $i < $antallRader; $i++) {
+            $rad = $resultat->fetch_object();
+            $date = DateTime::createFromFormat("m-d-y", $rad->datetime);
+            $dateString = $date->format("F jS Y");
+            echo "<tr><td>$rad->sport</td>"
+                . "<td>$rad->description</td>"
+                . "<td>$rad->gender</td>"
+                . "<td>$dateString</td></tr>";
+        }
+    }
+    // Close database connection.
     $db->close();
 }
 

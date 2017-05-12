@@ -47,7 +47,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <?php //populateEventsTable(); ?>
+                <?php populateEventsTable(); ?>
                 </tbody>
             </table>
         </div>
