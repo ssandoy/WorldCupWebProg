@@ -1,4 +1,6 @@
 <?php
+
+// populateAthletesTable
 if (isset($_POST["eventID"])) {
     // Connect to database.
     $db = new mysqli("student.cs.hioa.no", "s236305", "", "s236305");
@@ -10,31 +12,36 @@ if (isset($_POST["eventID"])) {
     // Execute SQL query.
     if ($id == 0) {
         $sql = "SELECT firstname, lastname, age, nationality, gender, sport "
-            . "FROM Athlete;";
+            . "FROM Athlete "
+            . "ORDER BY lastname DESC;";
     } else {
         $sql = "SELECT firstname, lastname, age, nationality, gender, sport "
-            . "FROM Athlete AS A "
-            . "JOIN EventAthlete ON A.AthleteID = EventAthlete.Athlete "
-            . "WHERE EventAthlete.Event LIKE $id";
+            . "FROM Athlete "
+            . "JOIN EventAthlete ON Athlete.AthleteID = EventAthlete.Athlete "
+            . "WHERE EventAthlete.Event LIKE $id "
+            . "ORDER BY lastname DESC;";
     }
-    $resultat = $db->query($sql);
+    $result = $db->query($sql);
     // Echo out all rows.
     if ($db->affected_rows > 0) {
-        $antallRader = $db->affected_rows;
-        for ($i = 0; $i < $antallRader; $i++) {
-            $rad = $resultat->fetch_object();
-            echo "<tr><td>$rad->firstname</td>"
-                . "<td>$rad->lastname</td>"
-                . "<td>$rad->age</td>"
-                . "<td>$rad->nationality</td>"
-                . "<td>$rad->gender</td>"
-                . "<td>$rad->sport</td></tr>";
+        $numRows = $db->affected_rows;
+        for ($i = 0; $i < $numRows; $i++) {
+            $row = $result->fetch_object();
+            $lastname = strtoupper($row->lastname);
+            echo "<tr><td><b>$lastname</b> $row->firstname</td>"
+                . "<td>$row->age</td>"
+                . "<td>$row->nationality</td>"
+                . "<td>$row->gender</td>"
+                . "<td>$row->sport</td></tr>";
         }
+    } else {
+        echo "<tr><td>No athletes found.</td></tr>";
     }
     // Close database connection.
     $db->close();
 }
 
+//populateEventCheckboxes
 if (isset($_POST["athleteGender"]) && isset($_POST["athleteSport"])) {
     // Connect to database.
     $db = new mysqli("student.cs.hioa.no", "s236305", "", "s236305");
@@ -48,15 +55,15 @@ if (isset($_POST["athleteGender"]) && isset($_POST["athleteSport"])) {
     $sql = "SELECT description, datetime "
          . "FROM Event "
          . "WHERE gender = '$gender' AND sport = '$sport';";
-    $resultat = $db->query($sql);
+    $result = $db->query($sql);
     // Echo out all rows.
     echo "<h3>Add athlete to events</h3>"
         . "<hr>";
     if ($db->affected_rows > 0) {
-        $antallRader = $db->affected_rows;
-        for ($i = 0; $i < $antallRader; $i++) {
-            $rad = $resultat->fetch_object();
-            echo "<div class='checkbox'><label><input type='checkbox'>$rad->description</label></div>";
+        $numRows = $db->affected_rows;
+        for ($i = 0; $i < $numRows; $i++) {
+            $row = $result->fetch_object();
+            echo "<div class='checkbox'><label><input type='checkbox'>$row->description</label></div>";
         }
     } else {
         echo "<p>No events found.</p>";
@@ -65,6 +72,7 @@ if (isset($_POST["athleteGender"]) && isset($_POST["athleteSport"])) {
     $db->close();
 }
 
+// populateAthleteCheckboxes
 if (isset($_POST["eventGender"]) && isset($_POST["eventSport"])) {
     // Connect to database.
     $db = new mysqli("student.cs.hioa.no", "s236305", "", "s236305");
@@ -78,15 +86,15 @@ if (isset($_POST["eventGender"]) && isset($_POST["eventSport"])) {
     $sql = "SELECT firstname, lastname "
         . "FROM Athlete "
         . "WHERE gender = '$gender' AND sport = '$sport';";
-    $resultat = $db->query($sql);
+    $result = $db->query($sql);
     // Echo out all rows.
     echo "<h3>Add athletes to event</h3>"
         . "<hr>";
     if ($db->affected_rows > 0) {
-        $antallRader = $db->affected_rows;
-        for ($i = 0; $i < $antallRader; $i++) {
-            $rad = $resultat->fetch_object();
-            echo "<div class='checkbox'><label><input type='checkbox'>$rad->firstname $rad->lastname</label></div>";
+        $numRows = $db->affected_rows;
+        for ($i = 0; $i < $numRows; $i++) {
+            $row = $result->fetch_object();
+            echo "<div class='checkbox'><label><input type='checkbox'>$row->firstname $row->lastname</label></div>";
         }
     } else {
         echo "<p>No athletes found.</p>";

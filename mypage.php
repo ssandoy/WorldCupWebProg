@@ -60,16 +60,15 @@
     <!-- Container -->
     <div class="main-container">
         <div class="row cell-container">
-            <div class="col-sm-8 compact-column">
+            <div class="col-sm-9 compact-column">
                 <div class="white-cell">
                     <h2>Events you have checked in on:</h2>
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Sport</th>
-                                <th>Description</th>
-                                <th>Gender</th>
-                                <th>Date</th>
+                                <th class="col-sm-3">Date</th>
+                                <th class="col-sm-3">Sport</th>
+                                <th class="col-sm-6">Event</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -78,7 +77,7 @@
                     </table>
                 </div>
             </div>
-            <div class="col-sm-4 compact-column">
+            <div class="col-sm-3 compact-column">
                 <div class="white-cell">
                     <h3>User account</h3>
                     <hr>

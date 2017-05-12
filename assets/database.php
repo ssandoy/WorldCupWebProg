@@ -58,10 +58,14 @@ function populateEventsTable() {
             $rad = $resultat->fetch_object();
             $date = DateTime::createFromFormat("m-d-y", $rad->datetime);
             $dateString = $date->format("F jS Y");
-            echo "<tr><td>$rad->sport</td>"
-                . "<td>$rad->description</td>"
-                . "<td>$rad->gender</td>"
-                . "<td>$dateString</td></tr>";
+            if ($rad->gender == "Male") {
+                $gender = "Men's";
+            } else {
+                $gender = "Women's";
+            }
+            echo "<tr><td>$dateString</td>"
+                . "<td>$gender $rad->sport</td>"
+                . "<td>$rad->description</td></tr>";
         }
     }
     // Close database connection.
@@ -90,10 +94,14 @@ function populateEventSpectatorTable() {
             $rad = $resultat->fetch_object();
             $date = DateTime::createFromFormat("m-d-y", $rad->datetime);
             $dateString = $date->format("F jS Y");
-            echo "<tr><td>$rad->sport</td>"
-                . "<td>$rad->description</td>"
-                . "<td>$rad->gender</td>"
-                . "<td>$dateString</td></tr>";
+            if ($rad->gender == "Male") {
+                $gender = "Men's";
+            } else {
+                $gender = "Women's";
+            }
+            echo "<tr><td>$dateString</td>"
+                . "<td>$gender $rad->sport</td>"
+                . "<td>$rad->description</td></tr>";
         }
     }
     // Close database connection.

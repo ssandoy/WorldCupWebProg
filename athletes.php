@@ -64,12 +64,11 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Firstname</th>
-                                <th>Lastname</th>
-                                <th>Age</th>
-                                <th>Nationality</th>
-                                <th>Gender</th>
-                                <th>Sport</th>
+                                <th class="col-sm-4">Name</th>
+                                <th class="col-sm-2">Age</th>
+                                <th class="col-sm-2">Nationality</th>
+                                <th class="col-sm-2">Gender</th>
+                                <th class="col-sm-2">Sport</th>
                             </tr>
                         </thead>
                         <tbody id="athleteTable">
