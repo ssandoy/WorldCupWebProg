@@ -70,6 +70,37 @@ function populateEventsTable() {
 
 // GET
 
+function getNextEvent() {
+    $db = new mysqli("student.cs.hioa.no", "s236305", "", "s236305");
+    if ($db->connect_error) {
+        trigger_error($db->connect_error);
+    }
+
+    $sql = "SELECT description, datetime, gender, sport "
+        . "FROM Event "
+        . "ORDER BY datetime ASC "
+        . "LIMIT 1";
+    $resultat = $db->query($sql);
+
+    if($db->affected_rows>0) {
+        $rad = $resultat->fetch_object();
+        $date = DateTime::createFromFormat("m-d-y", $rad->datetime);
+        $dateString = $date->format("l, F jS Y");
+        if ($rad->gender == "Male") {
+            $gender = "Men's";
+        } else {
+            $gender = "Women's";
+        }
+        echo "<h4 class='nextEvent'>$dateString</h4>"
+            . "<h3 class='nextEvent'>$rad->description</h3>"
+            . "<h4 class='nextEvent'>$gender $rad->sport</h4>";
+    } else {
+        echo "<p>There are no more events</p>";
+    }
+
+    $db->close();
+}
+
 // OTHER
 
 $db = new mysqli("student.cs.hioa.no", "s236305", "", "s236305");
@@ -229,7 +260,7 @@ function registerEventSpectator() {
     //mysqli_close($db); #TODO: LUKKE HER?
 }
 
-function listAllSpectators() {
+/*function listAllSpectators() {
 
     $sql = "Select username, firstname, lastname, phonenumber, email from Spectator ";
     $resultat = $db->query($sql);
@@ -250,9 +281,9 @@ function listAllSpectators() {
         echo "Fant ingen rader som oppfylte søket!";
     }
     $db->close();
-}
+}*/
 
-function listEventAthletes() {
+/*function listEventAthletes() {
     $eventID = $_GET["eventID"];
     $sql = "Select A.firstname, A.lastname, A.age, A.nationality from Athlete as A";
     $sql .= "JOIN EventAthlete ON A.AthleteID = EventAthlete.Athlete WHERE EventAthlete.Event LIKE ".$eventID;
@@ -274,37 +305,5 @@ function listEventAthletes() {
         echo "Fant ingen rader som oppfylte søket!";
     }
     $db->close();
-}
-
-function getNextEvent() {
-    $db = new mysqli("student.cs.hioa.no", "s236305", "", "s236305");
-    if ($db->connect_error) {
-        echo "Feil i databasetilknytningen";
-        trigger_error($db->connect_error);
-    }
-
-    $sql = "SELECT description, datetime, gender, sport "
-         . "FROM Event "
-         . "ORDER BY datetime ASC "
-         . "LIMIT 1";
-    $resultat = $db->query($sql);
-
-    if($db->affected_rows>0) {
-        $rad = $resultat->fetch_object();
-        $date = DateTime::createFromFormat("m-d-y", $rad->datetime);
-        $dateString = $date->format("l, F jS Y");
-        if ($rad->gender == "Male") {
-            $gender = "Men's";
-        } else {
-            $gender = "Women's";
-        }
-        echo "<h4 class='nextEvent'>$dateString</h4>"
-           . "<h3 class='nextEvent'>$rad->description</h3>"
-           . "<h4 class='nextEvent'>$gender $rad->sport</h4>";
-    } else {
-        echo "<p>There are no more events</p>";
-    }
-
-    $db->close();
-}
+}*/
 ?>
