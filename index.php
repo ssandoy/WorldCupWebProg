@@ -14,7 +14,7 @@
     <!-- PHP -->
     <?php
         include("assets/database.php");
-        include("assets/functions.php");
+        include("assets/authorization.php");
     ?>
     <!-- Metadata -->
     <title>WSC - Seefeld 2019</title>
