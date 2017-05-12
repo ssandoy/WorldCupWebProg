@@ -54,12 +54,13 @@
             <li class="active"><a href="mypage.php">MY PAGE</a></li>
             <li><a href="athletes.php">ATHLETES</a></li>
             <li><a href="events.php">EVENTS</a></li>
-            <li><a href="login.php">LOG OUT</a></li>
+            <li><a href="logout.php">LOG OUT</a></li>
         </ul>
     </nav>
     <!-- Container -->
     <div class="main-container">
         <div class="row cell-container">
+            <?php validateSpectatorLogin() ?>
             <div class="col-sm-9 compact-column">
                 <div class="white-cell">
                     <h2>Events you have checked in on:</h2>

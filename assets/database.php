@@ -20,8 +20,8 @@ function getAdminInfo() {
     if ($db->connect_error) {
         trigger_error($db->connect_error);
     }
-    // Get the ID of the logged in admin. TODO
-    $id = 1;
+    // Get the ID of the logged in admin. T
+    $id = $_SESSION['adminID'];
     // Execute SQL query.
     $sql = "SELECT username, firstname, lastname, phonenumber "
         . "FROM Admin "
@@ -46,8 +46,8 @@ function getSpectatorInfo() {
     if ($db->connect_error) {
         trigger_error($db->connect_error);
     }
-    // Get the ID of the logged in spectator. TODO
-    $id = 1;
+    // Get the ID of the logged in spectator.
+    $id = $_SESSION['spectatorID'];
     // Execute SQL query.
     $sql = "SELECT firstname, lastname, phonenumber, email, username "
         . "FROM Spectator "
@@ -194,7 +194,8 @@ function populateEventsTable() {
                 $gender = "Women's";
             }
             echo "<tr><td>$dateString</td>"
-                . "<td>$gender $row->sport</td>"
+                . "<td>$row->sport</td>"
+                . "<td>$gender</td>"
                 . "<td>$row->description</td></tr>";
         }
     }
@@ -206,18 +207,13 @@ function populateEventsTable() {
 // REGISTER FUNCTIONS
 //======================================================================
 
-//======================================================================
-// OTHER FUNCTIONS TODO: Fix and categorize these
-//======================================================================
-
-
-/*$db = new mysqli("student.cs.hioa.no", "s236305", "", "s236305");
-if ($db->connect_error) {
-    echo "Feil i databasetilknytningen";
-    trigger_error($db->connect_error);
-}
-
 function registerAdmin() {
+    // Connect to database.
+    $db = new mysqli("student.cs.hioa.no", "s236305", "", "s236305");
+    if ($db->connect_error) {
+        trigger_error($db->connect_error);
+    }
+
     #regAdmin via POST-calls and call save_to_DB-method.
     $firstname = $db->real_escape_string($_POST["firstname"]);
     $lastname = $db->real_escape_string($_POST["lastname"]);
@@ -246,56 +242,17 @@ function registerAdmin() {
         //header("Location: feilmelding.html");
         ob_flush();
     }
-    //mysqli_close($db); #TODO: LUKKE HER?
-}
-
-function registerAthlete() {
-    #regAthelete via POST-calls and call save_to_DB-method.
-    $firstname = $db->real_escape_string($_POST["firstname"]);
-    $lastname = $db->real_escape_string($_POST["lastname"]);
-    $age = $db->real_escape_string($_POST["age"]);
-    $nationality = $db->real_escape_string($_POST["nationality"]);
-
-    $athlete = new Athlete($firstname, $lastname, $age, $nationality);
-
-    $okTransaction = true;
-    if (!$athlete->save_to_db($db) || $db->affected_rows == 0) {
-        $okTransaction = false;
-    }
-    if ($okTransaction) {
-        $db->commit();
-    } else {
-        $db->rollback();
-        ob_start();
-        //header("Location: feilmelding.html");
-        ob_flush();
-    }
-    //mysqli_close($db); #TODO: LUKKE HER?
-}
-
-function registerEvent() {
-    #regEvent via POST-calls and call save_to_DB-method.
-    $description = $db->real_escape_string($_POST["description"]);
-    $datetime = $db->real_escape_string($_POST["datetime"]);
-
-    $event = new Event($description, $datetime);
-
-    $okTransaction = true;
-    if (!$event->save_to_db($db) || $db->affected_rows == 0) {
-        $okTransaction = false;
-    }
-    if ($okTransaction) {
-        $db->commit();
-    } else {
-        $db->rollback();
-        ob_start();
-        //header("Location: feilmelding.html");
-        ob_flush();
-    }
-    //mysqli_close($db); #TODO: LUKKE HER?
+    // Close database connection.
+    $db->close();
 }
 
 function registerSpectator() {
+    // Connect to database.
+    $db = new mysqli("student.cs.hioa.no", "s236305", "", "s236305");
+    if ($db->connect_error) {
+        trigger_error($db->connect_error);
+    }
+
     #regSpecator via POST-calls and call save_to_DB-method.
     $firstname = $db->real_escape_string($_POST["firstname"]);
     $lastname = $db->real_escape_string($_POST["lastname"]);
@@ -320,8 +277,87 @@ function registerSpectator() {
         //header("Location: feilmelding.html");
         ob_flush();
     }
-    //mysqli_close($db); #TODO: LUKKE HER?
+    // Close database connection.
+    $db->close();
 }
+
+function registerAthlete() {
+    // Connect to database.
+    $db = new mysqli("student.cs.hioa.no", "s236305", "", "s236305");
+    if ($db->connect_error) {
+        trigger_error($db->connect_error);
+    }
+
+    #regAthelete via POST-calls and call save_to_DB-method.
+    $firstname = $db->real_escape_string($_POST["firstname"]);
+    $lastname = $db->real_escape_string($_POST["lastname"]);
+    $age = $db->real_escape_string($_POST["age"]);
+    $nationality = $db->real_escape_string($_POST["nationality"]);
+
+    $athlete = new Athlete($firstname, $lastname, $age, $nationality);
+
+    $okTransaction = true;
+    if (!$athlete->save_to_db($db) || $db->affected_rows == 0) {
+        $okTransaction = false;
+    }
+    if ($okTransaction) {
+        $db->commit();
+    } else {
+        $db->rollback();
+        ob_start();
+        //header("Location: feilmelding.html");
+        ob_flush();
+    }
+    // Close database connection.
+    $db->close();
+}
+
+function registerEvent() {
+    // Connect to database.
+    $db = new mysqli("student.cs.hioa.no", "s236305", "", "s236305");
+    if ($db->connect_error) {
+        trigger_error($db->connect_error);
+    }
+    #regEvent via POST-calls and call save_to_DB-method.
+    $description = $db->real_escape_string($_POST["description"]);
+    $datetime = $db->real_escape_string($_POST["datetime"]);
+
+    $event = new Event($description, $datetime);
+
+    $okTransaction = true;
+    if (!$event->save_to_db($db) || $db->affected_rows == 0) {
+        $okTransaction = false;
+    }
+    if ($okTransaction) {
+        $db->commit();
+    } else {
+        $db->rollback();
+        ob_start();
+        //header("Location: feilmelding.html");
+        ob_flush();
+    }
+    // Close database connection.
+    $db->close();
+}
+
+
+//======================================================================
+// OTHER FUNCTIONS TODO: Fix and categorize these
+//======================================================================
+
+
+/*$db = new mysqli("student.cs.hioa.no", "s236305", "", "s236305");
+if ($db->connect_error) {
+    echo "Feil i databasetilknytningen";
+    trigger_error($db->connect_error);
+}
+
+
+
+
+
+
+
 
 
 function registerEventAthlete() {
