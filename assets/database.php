@@ -118,8 +118,7 @@ function getAdminInfo() {
 
     if($db->affected_rows>0) {
         $rad = $resultat->fetch_object();
-        echo "<h3>Active admin account:</h3>"
-           . "<h4>Username:</h4><p>$rad->username</p>"
+        echo "<h4>Username:</h4><p>$rad->username</p>"
            . "<h4>Name:</h4><p>$rad->firstname $rad->lastname</p>"
            . "<h4>Phone number:</h4><p>$rad->phonenumber</p>";
     } else {
@@ -145,8 +144,7 @@ function getSpectatorInfo() {
 
     if($db->affected_rows>0) {
         $rad = $resultat->fetch_object();
-        echo "<h3>User info:</h3>"
-            . "<h4>Username:</h4><p>$rad->username</p>"
+        echo "<h4>Username:</h4><p>$rad->username</p>"
             . "<h4>Name:</h4><p>$rad->firstname $rad->lastname</p>"
             . "<h4>Phone number:</h4><p>$rad->phonenumber</p>"
             . "<h4>E-mail:</h4><p>$rad->email</p>";

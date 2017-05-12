@@ -50,7 +50,8 @@ if (isset($_POST["athleteGender"]) && isset($_POST["athleteSport"])) {
          . "WHERE gender = '$gender' AND sport = '$sport';";
     $resultat = $db->query($sql);
     // Echo out all rows.
-    echo "<h3>Add athlete to events:</h3>";
+    echo "<h3>Add athlete to events</h3>"
+        . "<hr>";
     if ($db->affected_rows > 0) {
         $antallRader = $db->affected_rows;
         for ($i = 0; $i < $antallRader; $i++) {
@@ -79,7 +80,8 @@ if (isset($_POST["eventGender"]) && isset($_POST["eventSport"])) {
         . "WHERE gender = '$gender' AND sport = '$sport';";
     $resultat = $db->query($sql);
     // Echo out all rows.
-    echo "<h3>Add athletes to event:</h3>";
+    echo "<h3>Add athletes to event</h3>"
+        . "<hr>";
     if ($db->affected_rows > 0) {
         $antallRader = $db->affected_rows;
         for ($i = 0; $i < $antallRader; $i++) {

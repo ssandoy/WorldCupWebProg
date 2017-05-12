@@ -80,6 +80,8 @@
             </div>
             <div class="col-sm-4 compact-column">
                 <div class="white-cell">
+                    <h3>User account</h3>
+                    <hr>
                     <?php getSpectatorInfo(); ?>
                 </div>
             </div>

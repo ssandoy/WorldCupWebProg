@@ -125,6 +125,8 @@
                     </div>
                     <div class="col-sm-4 compact-column">
                         <div class="white-cell">
+                            <h3>Admin account</h3>
+                            <hr>
                             <?php getAdminInfo(); ?>
                         </div>
                     </div>
