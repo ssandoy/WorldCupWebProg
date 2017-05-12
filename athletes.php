@@ -19,7 +19,9 @@
     <!-- JavaScript -->
     <script>
         $(document).ready(function () {
-            $("#eventSelect").change(function () {
+            populateAthleteTable();
+            $("#eventSelect").change(populateAthleteTable);
+            function populateAthleteTable() {
                 value = $("#eventSelect").val();
                 $.ajax({
                     url: "assets/ajax.php",
@@ -29,7 +31,7 @@
                         $("#athleteTable").html(response);
                     }
                 });
-            });
+            }
         });
     </script>
     <!-- Metadata -->
