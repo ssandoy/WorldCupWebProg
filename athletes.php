@@ -54,12 +54,10 @@
 </nav>
 <!-- Container -->
 <div class="row" id="container">
-    <form action="" method="POST">
-        <select class="form-control" id="eventSelect">
-            <option value='0'>All events</option>
-            <?php populateEventsDropdown(); ?>
-        </select>
-    </form>
+    <select class="form-control" id="eventSelect">
+        <option value='0'>All events</option>
+        <?php populateEventsDropdown(); ?>
+    </select>
     <div class="col-sm-12 compact-column">
         <div class="white-cell">
             <table class="table">
