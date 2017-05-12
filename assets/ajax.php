@@ -15,7 +15,7 @@ if (isset($_POST["eventID"])) {
         $sql = "SELECT firstname, lastname, age, nationality, gender, sport "
             . "FROM Athlete AS A "
             . "JOIN EventAthlete ON A.AthleteID = EventAthlete.Athlete "
-            . "WHERE EventAthlete.Event LIKE " . $id;
+            . "WHERE EventAthlete.Event LIKE $id";
     }
     $resultat = $db->query($sql);
     // Echo out all rows.
@@ -79,7 +79,7 @@ if (isset($_POST["eventGender"]) && isset($_POST["eventSport"])) {
         . "WHERE gender = '$gender' AND sport = '$sport';";
     $resultat = $db->query($sql);
     // Echo out all rows.
-    echo "<h3>Add athlete to events:</h3>";
+    echo "<h3>Add athletes to event:</h3>";
     if ($db->affected_rows > 0) {
         $antallRader = $db->affected_rows;
         for ($i = 0; $i < $antallRader; $i++) {

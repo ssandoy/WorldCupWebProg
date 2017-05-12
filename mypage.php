@@ -60,12 +60,25 @@
 <div class="row" id="container">
     <div class="col-sm-8 compact-column">
         <div class="white-cell">
-            <?php //getEventSpectatorList(); ?>
+            <h2>Events you have checked in on:</h2>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Sport</th>
+                    <th>Description</th>
+                    <th>Gender</th>
+                    <th>Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <?php populateEventSpectatorTable(); ?>
+                </tbody>
+            </table>
         </div>
     </div>
     <div class="col-sm-4 compact-column">
         <div class="white-cell">
-            <?php //getSpectatorInfo(); ?>
+            <?php getSpectatorInfo(); ?>
         </div>
     </div>
 </div>

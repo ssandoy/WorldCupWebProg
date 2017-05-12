@@ -68,7 +68,94 @@ function populateEventsTable() {
     $db->close();
 }
 
+function populateEventSpectatorTable() {
+    // Connect to database.
+    $db = new mysqli("student.cs.hioa.no", "s236305", "", "s236305");
+    if ($db->connect_error) {
+        trigger_error($db->connect_error);
+    }
+    // TODO: get logged in spectator id
+    $id = 1;
+    // Execute SQL query.
+    $sql = "SELECT description, datetime, gender, sport "
+         . "FROM Event "
+         . "JOIN EventSpectator ON Event.EventID = EventSpectator.Event "
+         . "WHERE EventSpectator.Spectator LIKE $id "
+         . "ORDER BY datetime ASC;";
+    $resultat = $db->query($sql);
+    // Echo out all rows.
+    if ($db->affected_rows > 0) {
+        $antallRader = $db->affected_rows;
+        for ($i = 0; $i < $antallRader; $i++) {
+            $rad = $resultat->fetch_object();
+            $date = DateTime::createFromFormat("m-d-y", $rad->datetime);
+            $dateString = $date->format("F jS Y");
+            echo "<tr><td>$rad->sport</td>"
+                . "<td>$rad->description</td>"
+                . "<td>$rad->gender</td>"
+                . "<td>$dateString</td></tr>";
+        }
+    }
+    // Close database connection.
+    $db->close();
+}
+
 // GET
+
+function getAdminInfo() {
+    $db = new mysqli("student.cs.hioa.no", "s236305", "", "s236305");
+    if ($db->connect_error) {
+        trigger_error($db->connect_error);
+    }
+
+    // TODO: Get logged in admin id
+    $id = 1;
+
+    $sql = "SELECT username, firstname, lastname, phonenumber "
+        . "FROM Admin "
+        . "WHERE AdminID = $id;";
+    $resultat = $db->query($sql);
+
+    if($db->affected_rows>0) {
+        $rad = $resultat->fetch_object();
+        echo "<h3>Active admin account:</h3>"
+           . "<h4>Username:</h4><p>$rad->username</p>"
+           . "<h4>Name:</h4><p>$rad->firstname $rad->lastname</p>"
+           . "<h4>Phone number:</h4><p>$rad->phonenumber</p>";
+    } else {
+        echo "<p>Could not find admin info.</p>";
+    }
+
+    $db->close();
+}
+
+function getSpectatorInfo() {
+    $db = new mysqli("student.cs.hioa.no", "s236305", "", "s236305");
+    if ($db->connect_error) {
+        trigger_error($db->connect_error);
+    }
+
+    // TODO: Get logged in spectator id
+    $id = 1;
+
+    $sql = "SELECT firstname, lastname, phonenumber, email, username "
+        . "FROM Spectator "
+        . "WHERE SpectatorID = $id;";
+    $resultat = $db->query($sql);
+
+    if($db->affected_rows>0) {
+        $rad = $resultat->fetch_object();
+        echo "<h3>User info:</h3>"
+            . "<h4>Username:</h4><p>$rad->username</p>"
+            . "<h4>Name:</h4><p>$rad->firstname $rad->lastname</p>"
+            . "<h4>Phone number:</h4><p>$rad->phonenumber</p>"
+            . "<h4>E-mail:</h4><p>$rad->email</p>";
+    } else {
+        echo "<p>Could not find user info.</p>";
+    }
+
+    $db->close();
+}
 
 function getNextEvent() {
     $db = new mysqli("student.cs.hioa.no", "s236305", "", "s236305");

@@ -1,10 +1,16 @@
+/*
+ *
+ * PAGE LAYOUT
+ *
+ */
+
 body {
     background-color: #F5F5F5;
     background-image: url("../images/seefeld.jpg");
     background-repeat: no-repeat;
 }
 
-p, .navbar li a, h1, h2, h3, h4 {
+p, h1, h2, h3, h4, option, select, .navbar li a {
     font-family: 'Roboto Condensed', sans-serif;
 }
 
@@ -19,6 +25,11 @@ p, .navbar li a, h1, h2, h3, h4 {
     background-color: #EEE;
     margin: 0 auto;
     max-width: 1024px;
+}
+
+.row {
+    margin: 0;
+    width: 100%;
 }
 
 footer {
@@ -39,7 +50,7 @@ form p {
     margin: 0;
 }
 
-input {
+input, select {
     margin: 10px 0;
 }
 
@@ -51,17 +62,14 @@ input {
     padding: 15px;
 }
 
-select, option {
-    font-family: 'Roboto Condensed', sans-serif;
-}
-
-select {
+h2 select {
     font-size: 24px !important;
     height: 48px !important;
+    margin: 0 !important;
 }
 
-option {
-    font-size: 14px !important;
+h2 option {
+    font-size: 14px;
 }
 
 .compact-column {
@@ -118,14 +126,9 @@ option {
 
 /*
  *
- * CAROUSEL
+ * IMAGE CAROUSEL
  *
  */
-
-.row {
-    margin: 0;
-    width: 100%;
-}
 
 .carousel img {
     width: 100%;

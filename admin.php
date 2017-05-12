@@ -94,25 +94,25 @@
 <!-- Container -->
 <div class="row" id="container">
     <?php validateAdminLogin() ?>
-    <select class="form-control" id="formSelect">
+    <h2><select class="form-control" id="formSelect">
         <option>Register new admin</option>
         <option>Register new athlete</option>
         <option>Register new event</option>
-    </select>
+    </select></h2>
     <div id="adminForm">
         <form action="" method="POST">
             <div class="col-sm-8 compact-column">
                 <div class="white-cell">
+                    <p>Username:</p>
+                    <input class="form-control" name="username" type="text"/>
+                    <p>Password:</p>
+                    <input class="form-control" name="password" type="password"/>
                     <p>First name:</p>
                     <input class="form-control" name="firstname" type="text"/>
                     <p>Last name:</p>
                     <input class="form-control" name="lastname" type="text"/>
                     <p>Phone number:</p>
                     <input class="form-control" name="phoneNr" type="text"/>
-                    <p>Username:</p>
-                    <input class="form-control" name="username" type="text"/>
-                    <p>Password:</p>
-                    <input class="form-control" name="password" type="text"/>
                     <input class="btn" name="submitAdmin" type="submit" value="Register">
                     <?php
                     if (isset($_POST["submitAdmin"])) {
@@ -122,7 +122,9 @@
                 </div>
             </div>
             <div class="col-sm-4 compact-column">
-                <?php //getAdminInfo(); ?>
+                <div class="white-cell">
+                    <?php getAdminInfo(); ?>
+                </div>
             </div>
         </form>
     </div>
@@ -135,13 +137,20 @@
                     <p>Last name:</p>
                     <input class="form-control" name="lastname" type="text"/>
                     <p>Age:</p>
-                    <input class="form-control" name="age" type="text"/>
+                    <input class="form-control" name="age" type="number"/>
                     <p>Nationality:</p>
                     <input class="form-control" name="nationality" type="text"/>
                     <p>Gender:</p>
-                    <input class="form-control" id="athleteGender" name="gender" type="text"/>
+                    <select class="form-control" id="athleteGender" name="gender">
+                        <option>Male</option>
+                        <option>Female</option>
+                    </select>
                     <p>Sport:</p>
-                    <input class="form-control" id="athleteSport" name="sport" type="text"/>
+                    <select class="form-control" id="athleteSport" name="sport">
+                        <option>Cross-country</option>
+                        <option>Nordic combined</option>
+                        <option>Ski jumping</option>
+                    </select>
                     <input class="btn" name="submitAthlete" type="submit" value="Register">
                     <?php
                     if (isset($_POST["submitAthlete"])) {
@@ -160,13 +169,20 @@
             <div class="col-sm-8 compact-column">
                 <div class="white-cell">
                     <p>Sport:</p>
-                    <input class="form-control" id="eventSport" name="sport" type="text"/>
+                    <select class="form-control" id="eventSport" name="sport">
+                        <option>Cross-country</option>
+                        <option>Nordic combined</option>
+                        <option>Ski jumping</option>
+                    </select>
+                    <p>Gender:</p>
+                    <select class="form-control" id="eventGender" name="gender">
+                        <option>Male</option>
+                        <option>Female</option>
+                    </select>
                     <p>Description:</p>
                     <input class="form-control" name="description" type="text"/>
-                    <p>Gender:</p>
-                    <input class="form-control" id="eventGender" name="gender" type="text"/>
                     <p>Date:</p>
-                    <input class="form-control" name="datetime" type="text"/>
+                    <input class="form-control" name="datetime" type="date"/>
                     <input class="btn" name="submitEvent" type="submit" value="Register">
                     <?php
                     if (isset($_POST["submitEvent"])) {
