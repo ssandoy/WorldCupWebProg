@@ -326,8 +326,7 @@ function populateEventsTable() {
                 $gender = "Women's";
             }
             echo "<tr><td>$dateString</td>"
-                . "<td>$row->sport</td>"
-                . "<td>$gender</td>"
+                . "<td>$gender $row->sport</td>"
                 . "<td>$row->description</td></tr>";
         }
     }

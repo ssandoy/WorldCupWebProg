@@ -44,7 +44,6 @@
                             <tr>
                                 <th class="col-sm-3">Date</th>
                                 <th class="col-sm-3">Sport</th>
-                                <th class="col-sm-3">Gender</th>
                                 <th class="col-sm-6">Event</th>
                             </tr>
                         </thead>
