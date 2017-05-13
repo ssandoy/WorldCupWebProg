@@ -3,6 +3,9 @@ session_start();
 if (!isset($_SESSION["loggedin"])) {
     $_SESSION["loggedin"] = false;
 }
+if (!isset($_SESSION["adminloggedin"])) {
+    $_SESSION["adminloggedin"] = false;
+}
 
 function checkAdminLogin() {
     $db = new mysqli("student.cs.hioa.no", "s236305", "", "s236305");
