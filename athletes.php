@@ -49,7 +49,7 @@
             <li><a href="mypage.php">MY PAGE</a></li>
             <li class="active"><a href="athletes.php">ATHLETES</a></li>
             <li><a href="events.php">EVENTS</a></li>
-            <li><a href="login.php">LOG OUT</a></li>
+            <li><a href="logout.php">LOG OUT</a></li>
         </ul>
     </nav>
     <!-- Container -->

@@ -43,9 +43,8 @@ class Admin {
     }
 
     public function save_to_db($db) {
-        $hash = hash("sha1", $this->password);
         $sql = "INSERT INTO Admin (firstname,lastname,phonenumber,username, password) ";
-        $sql .= "VALUES ('$this->firstname','$this->lastname','$this->phoneNr','$this->username', '$hash')";
+        $sql .= "VALUES ('$this->firstname','$this->lastname','$this->phoneNr','$this->username', Password('$this->password'))";
         $result = $db->query($sql);
         if (!$result) {
             trigger_error($db->error);
@@ -95,11 +94,9 @@ class Spectator {
         return $this->password;
     }
 
-    #TODO: Implementere lagring i Event
     public function save_to_db($db) {
-        $hash = hash("sha1", $this->password);
         $sql = "INSERT INTO Spectator (firstname,lastname,phonenumber,email,username, password) ";
-        $sql .= "VALUES ('$this->firstname','$this->lastname','$this->phoneNr','$this->email','$this->username', '$hash')";
+        $sql .= "VALUES ('$this->firstname','$this->lastname','$this->phoneNr','$this->email','$this->username', Password('$this->password'))";
         $result = $db->query($sql);
         if (!$result) {
             trigger_error($db->error);
@@ -113,12 +110,14 @@ class Athlete {
     private $lastname;
     private $age;
     private $nationality;
+    private $gender;
 
-    function __construct($fn, $ln, $ag, $nt) {
+    function __construct($fn, $ln, $ag, $nt, $gn) {
         $this->firstname = $fn;
         $this->lastname = $ln;
         $this->age = $ag;
         $this->nationality = $nt;
+        $this->gender = $gn;
     }
 
     function getFirstname() {
@@ -138,8 +137,8 @@ class Athlete {
     }
     
     public function save_to_db($db) {
-        $sql = "INSERT INTO Athlete (firstname,lastname,age,nationality) ";
-        $sql .= "VALUES ('$this->firstname','$this->lastname','$this->age','$this->nationality')";
+        $sql = "INSERT INTO Athlete (firstname,lastname,age,nationality, gender) ";
+        $sql .= "VALUES ('$this->firstname','$this->lastname','$this->age','$this->nationality','$this->gender')";
         $result = $db->query($sql);
         if (!$result) {
             trigger_error($db->error);
@@ -151,11 +150,13 @@ class Athlete {
 class Event {
     private $description;
     private $datetime;
+    private $gender;
 
 
-    function __construct($ds, $dt) {
+    function __construct($ds, $dt, $gn) {
         $this->description = $ds;
         $this->datetime = $dt;
+        $this->gender = $gn;
     }
 
     function getDescription() {
@@ -167,8 +168,8 @@ class Event {
     }
 
     public function save_to_db($db) {
-        $sql = "INSERT INTO Event (description,datetime) ";
-        $sql .= "VALUES ('$this->description','$this->datetime')";
+        $sql = "INSERT INTO Event (description,datetime, gender) ";
+        $sql .= "VALUES ('$this->description','$this->datetime','$this->gender')";
         $result = $db->query($sql);
         if (!$result) {
             trigger_error($db->error);
