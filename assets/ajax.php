@@ -52,7 +52,7 @@ if (isset($_POST["athleteGender"]) && isset($_POST["athleteSport"])) {
     $gender = $_POST["athleteGender"];
     $sport = $_POST["athleteSport"];
     // Execute SQL query.
-    $sql = "SELECT description, datetime "
+    $sql = "SELECT eventID, description, datetime "
          . "FROM Event "
          . "WHERE gender = '$gender' AND sport = '$sport';";
     $result = $db->query($sql);
@@ -63,7 +63,7 @@ if (isset($_POST["athleteGender"]) && isset($_POST["athleteSport"])) {
         $numRows = $db->affected_rows;
         for ($i = 0; $i < $numRows; $i++) {
             $row = $result->fetch_object();
-            echo "<div class='checkbox'><label><input type='checkbox'>$row->description</label></div>";
+            echo "<div class='checkbox'><label><input name='events[]' type='checkbox' value='$row->eventID'>$row->description</label></div>";
         }
     } else {
         echo "<p>No events found.</p>";
@@ -83,7 +83,7 @@ if (isset($_POST["eventGender"]) && isset($_POST["eventSport"])) {
     $gender = $_POST["eventGender"];
     $sport = $_POST["eventSport"];
     // Execute SQL query.
-    $sql = "SELECT firstname, lastname "
+    $sql = "SELECT athleteID, firstname, lastname "
         . "FROM Athlete "
         . "WHERE gender = '$gender' AND sport = '$sport';";
     $result = $db->query($sql);
@@ -94,7 +94,7 @@ if (isset($_POST["eventGender"]) && isset($_POST["eventSport"])) {
         $numRows = $db->affected_rows;
         for ($i = 0; $i < $numRows; $i++) {
             $row = $result->fetch_object();
-            echo "<div class='checkbox'><label><input type='checkbox'>$row->firstname $row->lastname</label></div>";
+            echo "<div class='checkbox'><label><input name='athletes[]' type='checkbox' value='$row->athleteID'>$row->firstname $row->lastname</label></div>";
         }
     } else {
         echo "<p>No athletes found.</p>";
