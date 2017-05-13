@@ -95,8 +95,8 @@ function editEvent(){
     $id = $db->real_escape_string($_POST["eventID"]);
     $description = $db->real_escape_string($_POST["description"]);
     $datetime = $db->real_escape_string($_POST["datetime"]);
-    $eventGender = $db->real_escape_string($_POST["eventGender"]);
-    $eventSport = $db->real_escape_string($_POST["eventSport"]);
+    $eventGender = $db->real_escape_string($_POST["gender"]);
+    $eventSport = $db->real_escape_string($_POST["sport"]);
 
     $sql = "UPDATE Event SET description = $description,datetime = $datetime,gender = $eventGender,sport = $eventSport";
     $sql .= " WHERE EventID = $id;";
@@ -125,8 +125,8 @@ function editAthlete(){
     $lastname = $db->real_escape_string($_POST["lastname"]);
     $age = $db->real_escape_string($_POST["age"]);
     $nationality = $db->real_escape_string($_POST["nationality"]);
-    $gender = $db->real_escape_string($_POST["athleteGender"]);
-    $sport = $db->real_escape_string($_POST["athleteSport"]);
+    $gender = $db->real_escape_string($_POST["gender"]);
+    $sport = $db->real_escape_string($_POST["sport"]);
 
     $sql = "UPDATE Athlete SET firstname=$firstname,lastname=$lastname,age=$age,nationality=$nationality,gender=$gender,sport=$sport";
     $sql .= " WHERE Athlete = $id;";
@@ -251,14 +251,14 @@ function populateEventsDropdown() {
         $numRows = $db->affected_rows;
         for ($i=0;$i<$numRows;$i++) {
             $row = $result->fetch_object();
-            $date = DateTime::createFromFormat("m-d-y", $row->datetime);
-            $dateString = $date->format("l, F jS Y");
+            //$date = DateTime::createFromFormat("m-d-y", $row->datetime);
+            //$dateString = $date->format("l, F jS Y");
             if ($row->gender == "Male") {
                 $gender = "Men's";
             } else {
                 $gender = "Women's";
             }
-            echo "<option value='$row->EventID'>$gender $row->sport - $row->description ($dateString)</option>";
+            echo "<option value='$row->EventID'>$gender $row->sport - $row->description </option>";
         }
     }
     // Close database connection.
@@ -424,14 +424,17 @@ function registerAthlete() {
     $lastname = $db->real_escape_string($_POST["lastname"]);
     $age = $db->real_escape_string($_POST["age"]);
     $nationality = $db->real_escape_string($_POST["nationality"]);
+    $gender = $db->real_escape_string($_POST["gender"]);
+    $sport = $db->real_escape_string($_POST["sport"]);
 
-    $athlete = new Athlete($firstname, $lastname, $age, $nationality);
+    $athlete = new Athlete($firstname, $lastname, $age, $nationality, $gender, $sport);
 
     $okTransaction = true;
     if (!$athlete->save_to_db($db) || $db->affected_rows == 0) {
         $okTransaction = false;
     }
     if ($okTransaction) {
+        $athleteID = $db->insert_id;
         $db->commit();
     } else {
         $db->rollback();
@@ -439,6 +442,31 @@ function registerAthlete() {
         //header("Location: feilmelding.html");
         ob_flush();
     }
+
+    if(isset($_POST["events"])){
+        #regEventAthlete via POST-calls and call save_to_DB-method.
+
+        foreach ($_POST['events'] as $value) {
+            $eventID =$value;
+            $eventAthlete = new EventAthlete($eventID, $athleteID);
+            $okTransaction = true;
+            if (!$eventAthlete->save_to_db($db) || $db->affected_rows == 0) {
+                $okTransaction = false;
+            }
+            if ($okTransaction) {
+                $db->commit();
+            } else {
+                $db->rollback();
+                ob_start();
+                header("Location: feilmelding.html");
+                ob_flush();
+            }
+        }
+    }else {
+        header("Location:index.php");
+    }
+
+
     // Close database connection.
     $db->close();
 }
@@ -451,12 +479,68 @@ function registerEvent() {
     }
     #regEvent via POST-calls and call save_to_DB-method.
     $description = $db->real_escape_string($_POST["description"]);
-    $datetime = $db->real_escape_string($_POST["datetime"]);
+    $datetime = date("d-m-y", strtotime($db->real_escape_string($_POST["datetime"])));
+    $gender = $db->real_escape_string($_POST["gender"]);
+    $sport = $db->real_escape_string($_POST["sport"]);
 
-    $event = new Event($description, $datetime);
+    $event = new Event($description, $datetime, $gender ,$sport);
 
     $okTransaction = true;
     if (!$event->save_to_db($db) || $db->affected_rows == 0) {
+        $okTransaction = false;
+    }
+    if ($okTransaction) {
+        $eventID = $db->insert_id;
+        $db->commit();
+    } else {
+        $db->rollback();
+        ob_start();
+        //header("Location: feilmelding.html");
+        ob_flush();
+    }
+
+    if(isset($_POST["athletes"])){
+        #regEventAthlete via POST-calls and call save_to_DB-method.
+
+        foreach ($_POST['athletes'] as $value) {
+            $athleteID =$value;
+            $eventAthlete = new EventAthlete($eventID, $athleteID);
+            $okTransaction = true;
+            if (!$eventAthlete->save_to_db($db) || $db->affected_rows == 0) {
+                $okTransaction = false;
+            }
+            if ($okTransaction) {
+                $db->commit();
+            } else {
+                $db->rollback();
+                ob_start();
+                header("Location: feilmelding.html");
+                ob_flush();
+            }
+        }
+    }else {
+        header("Location:index.php");
+    }
+    
+    // Close database connection.
+    $db->close();
+}
+
+function registerEventAthlete() {
+    // Connect to database.
+    $db = new mysqli("student.cs.hioa.no", "s236305", "", "s236305");
+    if ($db->connect_error) {
+        trigger_error($db->connect_error);
+    }
+
+    #regEventAthlete via POST-calls and call save_to_DB-method.
+    $athleteID = $db->real_escape_string($_POST["AthleteID"]);
+    $eventID = $db->real_escape_string($_POST["EventID"]);
+
+    $eventAthlete = new EventAthlete($eventID, $athleteID);
+
+    $okTransaction = true;
+    if (!$eventAthlete->save_to_db($db) || $db->affected_rows == 0) {
         $okTransaction = false;
     }
     if ($okTransaction) {
@@ -477,41 +561,9 @@ function registerEvent() {
 //======================================================================
 
 
-/*$db = new mysqli("student.cs.hioa.no", "s236305", "", "s236305");
-if ($db->connect_error) {
-    echo "Feil i databasetilknytningen";
-    trigger_error($db->connect_error);
-}
+/*$
 
 
-
-
-
-
-
-
-
-function registerEventAthlete() {
-    #regEventAthlete via POST-calls and call save_to_DB-method.
-    $athleteID = $db->real_escape_string($_POST["AthleteID"]);
-    $eventID = $db->real_escape_string($_POST["EventID"]);
-
-    $eventAthlete = new EventAthlete($eventID, $athleteID);
-
-    $okTransaction = true;
-    if (!$event->save_to_db($db) || $db->affected_rows == 0) {
-        $okTransaction = false;
-    }
-    if ($okTransaction) {
-        $db->commit();
-    } else {
-        $db->rollback();
-        ob_start();
-        //header("Location: feilmelding.html");
-        ob_flush();
-    }
-    //mysqli_close($db); #TODO: LUKKE HER?
-}
 
 function registerEventSpectator() {
     #regEventSpectator via POST-calls and call save_to_DB-method.

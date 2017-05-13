@@ -22,26 +22,6 @@ class Admin {
         $this->password = $pw;
     }
 
-    function getFirstname() {
-        return $this->firstname;
-    }
-
-    function getLastname() {
-        return $this->lastname;
-    }
-
-    function getPhoneNr() {
-        return $this->phoneNr;
-    }
-
-    function getUsername() {
-        return $this->username;
-    }
-
-    function getPassword() {
-        return $this->password;
-    }
-
     public function save_to_db($db) {
         $sql = "INSERT INTO Admin (firstname,lastname,phonenumber,username, password) ";
         $sql .= "VALUES ('$this->firstname','$this->lastname','$this->phoneNr','$this->username', Password('$this->password'))";
@@ -111,34 +91,20 @@ class Athlete {
     private $age;
     private $nationality;
     private $gender;
+    private $sport; 
 
-    function __construct($fn, $ln, $ag, $nt, $gn) {
+    function __construct($fn, $ln, $ag, $nt, $gn, $sp) {
         $this->firstname = $fn;
         $this->lastname = $ln;
         $this->age = $ag;
         $this->nationality = $nt;
         $this->gender = $gn;
-    }
-
-    function getFirstname() {
-        return $this->firstname;
-    }
-
-    function getLastname() {
-        return $this->lastname;
-    }
-
-    function getAge() {
-        return $this->age;
-    }
-
-    function getNationality() {
-        return $this->nationality;
+        $this->sport = $sp;
     }
     
     public function save_to_db($db) {
-        $sql = "INSERT INTO Athlete (firstname,lastname,age,nationality, gender) ";
-        $sql .= "VALUES ('$this->firstname','$this->lastname','$this->age','$this->nationality','$this->gender')";
+        $sql = "INSERT INTO Athlete (firstname,lastname,age,nationality, gender, sport) ";
+        $sql .= "VALUES ('$this->firstname','$this->lastname','$this->age','$this->nationality','$this->gender','$this->sport')";
         $result = $db->query($sql);
         if (!$result) {
             trigger_error($db->error);
@@ -151,25 +117,20 @@ class Event {
     private $description;
     private $datetime;
     private $gender;
+    private $sport;
 
 
-    function __construct($ds, $dt, $gn) {
+    function __construct($ds, $dt, $gn, $sp) {
         $this->description = $ds;
         $this->datetime = $dt;
         $this->gender = $gn;
+        $this->sport = $sp;
     }
-
-    function getDescription() {
-        return $this->description;
-    }
-
-    function getDatetime() {
-        return $this->datetime;
-    }
+    
 
     public function save_to_db($db) {
-        $sql = "INSERT INTO Event (description,datetime, gender) ";
-        $sql .= "VALUES ('$this->description','$this->datetime','$this->gender')";
+        $sql = "INSERT INTO Event (description,datetime, gender, sport) ";
+        $sql .= "VALUES ('$this->description','$this->datetime','$this->gender','$this->sport')";
         $result = $db->query($sql);
         if (!$result) {
             trigger_error($db->error);
