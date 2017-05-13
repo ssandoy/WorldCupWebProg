@@ -6,9 +6,141 @@ include("classes.php");
 // DELETE FUNCTIONS
 //======================================================================
 
+function deleteAthlete() {
+    // Connect to database.
+    $db = new mysqli("student.cs.hioa.no", "s236305", "", "s236305");
+    if ($db->connect_error) {
+        trigger_error($db->connect_error);
+    }
+
+    // Get the ID of the logged in admin. T
+    $id =  $_POST['athleteID'];  //FIXME
+    // Execute SQL query.
+    $sql = "Delete FROM Athlete"
+        . "WHERE AthleteID = $id;";
+    $result = $db->query($sql);
+
+    if ($result === TRUE) {
+        echo "Record deleted successfully";
+    } else {
+        echo "Error deleting record: " . $db->error;
+    }
+    // Close database connection.
+    $db->close();
+}
+
+function deleteEvent() {
+    // Connect to database.
+    $db = new mysqli("student.cs.hioa.no", "s236305", "", "s236305");
+    if ($db->connect_error) {
+        trigger_error($db->connect_error);
+    }
+
+    // Get the ID of the logged in admin. T
+    $id = $_POST['eventID'];//FIXME
+    // Execute SQL query.
+    $sql = "Delete FROM Event"
+        . "WHERE EventID = $id;";
+    $result = $db->query($sql);
+
+    if ($result === TRUE) {
+        echo "Record deleted successfully";
+    } else {
+        echo "Error deleting record: " . $db->error;
+    }
+    // Close database connection.
+    $db->close();
+}
 //======================================================================
 // EDIT FUNCTIONS
 //======================================================================
+
+function editAdmin() {
+    // Connect to database.
+    $db = new mysqli("student.cs.hioa.no", "s236305", "", "s236305");
+    if ($db->connect_error) {
+        trigger_error($db->connect_error);
+    }
+
+    #editAdmin via POST-calls and update db.
+    $id = $_SESSION['adminID'];
+    $firstname = $db->real_escape_string($_POST["firstname"]);
+    $lastname = $db->real_escape_string($_POST["lastname"]);
+    $phoneNr = $db->real_escape_string($_POST["phoneNr"]);
+    $username = $db->real_escape_string($_POST["username"]);
+    $password = $db->real_escape_string($_POST["password"]);
+
+    $sql = "UPDATE Admin SET firstname=$firstname,lastname=$lastname,phonenumber=$phoneNr,username=$username, password=Password('$password') ";
+    $sql .= " WHERE AdminID = $id;";
+
+    $result = $db->query($sql);
+
+    if ($result === TRUE) {
+        echo "Record updated successfully";
+    } else {
+        echo "Error updating record: " . $db->error;
+    }
+    // Close database connection.
+    $db->close();
+}
+
+function editEvent(){
+    // Connect to database.
+    $db = new mysqli("student.cs.hioa.no", "s236305", "", "s236305");
+    if ($db->connect_error) {
+        trigger_error($db->connect_error);
+    }
+
+    #editAdmin via POST-calls and update db.
+    $id = $db->real_escape_string($_POST["eventID"]);
+    $description = $db->real_escape_string($_POST["description"]);
+    $datetime = $db->real_escape_string($_POST["datetime"]);
+    $eventGender = $db->real_escape_string($_POST["eventGender"]);
+    $eventSport = $db->real_escape_string($_POST["eventSport"]);
+
+    $sql = "UPDATE Event SET description = $description,datetime = $datetime,gender = $eventGender,sport = $eventSport";
+    $sql .= " WHERE EventID = $id;";
+
+    $result = $db->query($sql);
+
+    if ($result === TRUE) {
+        echo "Record updated successfully";
+    } else {
+        echo "Error updating record: " . $db->error;
+    }
+    // Close database connection.
+    $db->close();
+}
+
+function editAthlete(){
+    // Connect to database.
+    $db = new mysqli("student.cs.hioa.no", "s236305", "", "s236305");
+    if ($db->connect_error) {
+        trigger_error($db->connect_error);
+    }
+
+    #editAdmin via POST-calls and update db.
+    $id = $db->real_escape_string($_POST["athleteID"]);
+    $firstname = $db->real_escape_string($_POST["firstname"]);
+    $lastname = $db->real_escape_string($_POST["lastname"]);
+    $age = $db->real_escape_string($_POST["age"]);
+    $nationality = $db->real_escape_string($_POST["nationality"]);
+    $gender = $db->real_escape_string($_POST["athleteGender"]);
+    $sport = $db->real_escape_string($_POST["athleteSport"]);
+
+    $sql = "UPDATE Athlete SET firstname=$firstname,lastname=$lastname,age=$age,nationality=$nationality,gender=$gender,sport=$sport";
+    $sql .= " WHERE Athlete = $id;";
+
+    $result = $db->query($sql);
+
+    if ($result === TRUE) {
+        echo "Record updated successfully";
+    } else {
+        echo "Error updating record: " . $db->error;
+    }
+    // Close database connection.
+    $db->close();
+}
 
 //======================================================================
 // GET FUNCTIONS
