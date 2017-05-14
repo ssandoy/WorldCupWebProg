@@ -64,7 +64,7 @@
             <?php validateSpectatorLogin() ?>
             <div class="col-sm-9 compact-column">
                 <div class="white-cell">
-                    <h2>Events you have checked in on:</h2>
+                    <h2>Events you are attending</h2>
                     <table class="table">
                         <thead>
                             <tr>
