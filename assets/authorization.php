@@ -57,7 +57,7 @@ function checkSpectatorLogin() {
         $password = stripslashes($_POST["password"]);
         $myusername = $db->real_escape_string($username);
         $mypassword = $db->real_escape_string($password);
-        $sql="SELECT * FROM Spectator WHERE username='$myusername' AND password='$mypassword'";
+        $sql="SELECT * FROM Spectator WHERE username='$myusername' AND password=Password('$mypassword')";
         $result=$db->query($sql);
         // If result matched $myusername and $mypassword, table row must be 1 row
         if($db->affected_rows==1) {
@@ -91,6 +91,14 @@ function getNavbar() {
               <li><a href='logout.php'>LOG OUT</a></li>";
     } else {
         echo "<li><a href='login.php'>LOG IN</a></li>";
+    }
+}
+
+function getPartialNavbar() {
+    if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]) {
+        echo "<li><a href='mypage.php'>MY PAGE</a></li>";
+    } else if(isset($_SESSION["adminloggedin"]) && $_SESSION["adminloggedin"]) {
+        echo "<li><a href='admin.php'>ADMIN</a></li>";
     }
 }
 

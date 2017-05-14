@@ -45,8 +45,7 @@
         <img src="assets/images/logo.png"/>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="index.php">FRONT PAGE</a></li>
-            <li><a href="admin.php">ADMIN</a></li>
-            <li><a href="mypage.php">MY PAGE</a></li>
+            <?php getPartialNavbar(); ?>
             <li class="active"><a href="athletes.php">ATHLETES</a></li>
             <li><a href="events.php">EVENTS</a></li>
             <li><a href="logout.php">LOG OUT</a></li>

@@ -86,7 +86,6 @@
         <ul class="nav navbar-nav navbar-right">
             <li><a href="index.php">FRONT PAGE</a></li>
             <li class="active"><a href="admin.php">ADMIN</a></li>
-            <li><a href="mypage.php">MY PAGE</a></li>
             <li><a href="athletes.php">ATHLETES</a></li>
             <li><a href="events.php">EVENTS</a></li>
             <li><a href="logout.php">LOG OUT</a></li>

@@ -29,12 +29,17 @@
                 <form method="POST" action="">
                     <label>UserName  :</label><input type = "text" name = "username" class = "box"/><br /><br />
                     <label>Password  :</label><input type = "password" name = "password" class = "box" /><br/><br />
+                    <label>Admin :</label><input type="checkbox" name="adminLogin"/><br/><br />
                     <input name="loginSubmit" type="submit" value="Submit"/><br />
                 </form>
                 <div style = "font-size:11px; color:#cc0000; margin-top:10px">
                     <?php
                         if (isset($_POST["loginSubmit"])) {
-                            checkAdminLogin();
+                            if (isset($_POST["adminLogin"])) {
+                                checkAdminLogin();
+                            } else {
+                                checkSpectatorLogin();
+                            }
                         }
                     ?>
                 </div>

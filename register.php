@@ -27,8 +27,7 @@
     <img src="assets/images/logo.png"/>
     <ul class="nav navbar-nav navbar-right">
         <li><a href="index.php">FRONT PAGE</a></li>
-        <li><a href="admin.php">ADMIN</a></li>
-        <li><a href="mypage.php">MY PAGE</a></li>
+        <?php getPartialNavbar(); ?>
         <li><a href="athletes.php">ATHLETES</a></li>
         <li><a href="events.php">EVENTS</a></li>
         <li><a href="logout.php">LOG OUT</a></li>
@@ -39,7 +38,7 @@
     <div class="cell-container row">
         <div class="col-sm-12 compact-column">
             <div class="white-cell">
-                <h2>Register new account:</h2>
+                <h2>Register new account</h2>
                 <form action="" method="POST">
                     <p>Username:</p>
                     <input class="form-control" name="username" type="text"/>
