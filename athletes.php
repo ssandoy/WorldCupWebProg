@@ -15,6 +15,7 @@
     <?php
     include("assets/database.php");
     include("assets/authorization.php");
+    include("assets/errorHandling.php");
     ?>
     <!-- Populate Table JavaScript -->
     <script>
