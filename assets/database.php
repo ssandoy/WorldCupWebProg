@@ -411,7 +411,7 @@ function populateEventsTable() {
             } else {
                 $gender = "Women's";
             }
-            if (isset($_SESSION["adminloggedin"]) || $_SESSION["adminloggedin"]) {
+            if (isset($_SESSION["adminloggedin"]) && $_SESSION["adminloggedin"]) {
                 echo "<tr><td>$dateString</td>"
                     . "<td>$gender $row->sport</td>"
                     . "<td>$row->description</td>"
@@ -420,7 +420,8 @@ function populateEventsTable() {
             } else {
                 echo "<tr><td>$dateString</td>"
                     . "<td>$gender $row->sport</td>"
-                    . "<td>$row->description</td></tr>";
+                    . "<td>$row->description</td>"
+                    . "<td><a href='#'><button class='btn btn-sm btn-success'>Check In</button></a></td></tr>";
             }
         }
     }

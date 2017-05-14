@@ -29,7 +29,7 @@ if (isset($_POST["eventID"])) {
         for ($i = 0; $i < $numRows; $i++) {
             $row = $result->fetch_object();
             $lastname = strtoupper($row->lastname);
-            if (isset($_SESSION["adminloggedin"]) || $_SESSION["adminloggedin"]) {
+            if (isset($_SESSION["adminloggedin"]) && $_SESSION["adminloggedin"]) {
                 echo "<tr><td><b>$lastname</b> $row->firstname</td>"
                     . "<td>$row->age</td>"
                     . "<td>$row->nationality</td>"
@@ -42,7 +42,8 @@ if (isset($_POST["eventID"])) {
                     . "<td>$row->age</td>"
                     . "<td>$row->nationality</td>"
                     . "<td>$row->gender</td>"
-                    . "<td>$row->sport</td></tr>";
+                    . "<td>$row->sport</td>"
+                    . "<td></td></tr>";
             }
 
         }
