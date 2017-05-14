@@ -167,12 +167,12 @@ function validate_eventDescription() {
 }
 
 function validate_eventDatetime() {
-    var regex = new RegExp(/^[0-9]{2}\/[0-9]{2}\/2019$/);
+    var regex = new RegExp(/^2019\-[0-9]{2}\-[0-9]{2}$/);
     var value = document.getElementById("eventDatetime").value;
     var ok = regex.test(value);
     if (!ok) {
         document.getElementById("eventDatetimeMessage").innerHTML = "<div class='alert alert-danger'>You must choose a "
-            + "date in 2019.</div>";
+            + "legitimate date in 2019.</div>";
     } else {
         document.getElementById("eventDatetimeMessage").innerHTML = "";
     }
