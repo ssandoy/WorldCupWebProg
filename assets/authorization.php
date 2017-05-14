@@ -105,16 +105,34 @@ function getPartialNavbar() {
 function validateAdminLogin()
 {
     if (!isset($_SESSION["adminloggedin"]) || !$_SESSION["adminloggedin"]) {
-        echo "You are not logged in";
-        echo "<br/><a href=login.php>Tilbake til innlogging</a>";
-        die();
+        ob_start();
+        header("location:index.php");
+        ob_end_flush();
     }
 }
 
 function validateSpectatorLogin(){
     if (!isset($_SESSION["loggedin"])|| !$_SESSION["loggedin"]) {
-        echo "You are not logged in";
-        echo "<br/><a href=login.php>Tilbake til innlogging</a>";
-        die();
+        ob_start();
+        header("location:index.php");
+        ob_end_flush();
+    }
+}
+
+function validateLogin() {
+    if (!isset($_SESSION["adminloggedin"]) || !$_SESSION["adminloggedin"]) {
+        if (!isset($_SESSION["loggedin"])|| !$_SESSION["loggedin"]) {
+            ob_start();
+            header("location:index.php");
+            ob_end_flush();
+        }
+    }
+}
+
+function validateNotLoggedIn() {
+    if ((isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]) || (isset($_SESSION["adminloggedin"]) && $_SESSION["adminloggedin"])) {
+        ob_start();
+        header("location:index.php");
+        ob_end_flush();
     }
 }

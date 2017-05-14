@@ -80,6 +80,8 @@
     </script>
 </head>
 <body>
+    <!-- Authorization -->
+    <?php validateAdminLogin() ?>
     <!-- Navbar -->
     <nav class="navbar">
         <img src="assets/images/logo.png"/>
@@ -94,7 +96,6 @@
     <!-- Container -->
     <div class="main-container">
         <div class="cell-container">
-            <?php validateAdminLogin() ?>
             <h2><select class="form-control" id="formSelect">
                 <option>Register new admin</option>
                 <option>Register new athlete</option>

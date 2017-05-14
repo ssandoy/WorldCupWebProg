@@ -45,6 +45,8 @@
     </script>
 </head>
 <body>
+    <!-- Authorization -->
+    <?php validateSpectatorLogin() ?>
     <!-- Navbar -->
     <nav class="navbar">
         <img src="assets/images/logo.png" />

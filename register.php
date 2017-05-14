@@ -22,15 +22,14 @@
     <meta name="author" content="Sindre Beba, Sander Sandøy">
 </head>
 <body>
+<!-- Authorization -->
+<?php validateNotLoggedIn() ?>
 <!-- Navbar -->
 <nav class="navbar">
     <img src="assets/images/logo.png"/>
     <ul class="nav navbar-nav navbar-right">
         <li><a href="index.php">FRONT PAGE</a></li>
-        <?php getPartialNavbar(); ?>
-        <li><a href="athletes.php">ATHLETES</a></li>
-        <li><a href="events.php">EVENTS</a></li>
-        <li><a href="logout.php">LOG OUT</a></li>
+        <li><a href="login.php">LOG IN</a></li>
     </ul>
 </nav>
 <!-- Container -->

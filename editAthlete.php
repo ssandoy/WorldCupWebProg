@@ -20,46 +20,44 @@
     <title>WSC - Seefeld 2019</title>
     <meta charset="UTF-8">
     <meta name="author" content="Sindre Beba, Sander Sandøy">
-    <!-- Form Selector JavaScript -->
-    <!-- JavaScript -->
 </head>
 <body>
-<!-- Navbar -->
-<nav class="navbar">
-    <img src="assets/images/logo.png"/>
-    <ul class="nav navbar-nav navbar-right">
-        <li><a href="index.php">FRONT PAGE</a></li>
-        <li class="active"><a href="admin.php">ADMIN</a></li>
-        <li><a href="mypage.php">MY PAGE</a></li>
-        <li><a href="athletes.php">ATHLETES</a></li>
-        <li><a href="events.php">EVENTS</a></li>
-        <li><a href="logout.php">LOG OUT</a></li>
-    </ul>
-</nav>
-<!-- Container -->
-<div class="main-container">
-    <div class="cell-container">
-        <?php validateAdminLogin() ?>
-        <div class="row" id="athleteForm">
-            <form action="" method="POST">
-                <div class="col-sm-8 compact-column">
-                    <div class="white-cell">
-                        <?php populateAthleteForm(); ?>
-                        <input class="btn" name="editAthlete" type="submit" value="Update">
-                        <?php
-                        if (isset($_POST["editAthlete"])) {
-                            editAthlete();
-                        }
-                        ?>
+    <!-- Authorization -->
+    <?php validateAdminLogin() ?>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <img src="assets/images/logo.png"/>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="index.php">FRONT PAGE</a></li>
+            <?php getPartialNavbar(); ?>
+            <li><a href="athletes.php">ATHLETES</a></li>
+            <li><a href="events.php">EVENTS</a></li>
+            <li><a href="logout.php">LOG OUT</a></li>
+        </ul>
+    </nav>
+    <!-- Container -->
+    <div class="main-container">
+        <div class="cell-container">
+            <div class="row" id="athleteForm">
+                <form action="" method="POST">
+                    <div class="col-sm-8 compact-column">
+                        <div class="white-cell">
+                            <?php populateAthleteForm(); ?>
+                            <input class="btn" name="editAthlete" type="submit" value="Update">
+                            <?php
+                            if (isset($_POST["editAthlete"])) {
+                                editAthlete();
+                            }
+                            ?>
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
+        <footer>
+            <p>(C) 2017 Sindre Beba and Sander Fagerland Sandøy</p>
+        </footer>
     </div>
-    <footer>
-        <p>(C) 2017 Sindre Beba and Sander Fagerland Sandøy</p>
-    </footer>
-</div>
 </body>
 </html>
 

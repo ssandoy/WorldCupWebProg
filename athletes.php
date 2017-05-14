@@ -40,6 +40,8 @@
     <meta name="author" content="Sindre Beba, Sander Sandøy">
 </head>
 <body>
+    <!-- Authorization -->
+    <?php validateLogin() ?>
     <!-- Navbar -->
     <nav class="navbar">
         <img src="assets/images/logo.png"/>
