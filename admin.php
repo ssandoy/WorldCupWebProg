@@ -45,7 +45,7 @@
             });
         });
     </script>
-    <!-- JavaScript -->
+    <!-- Populate Checkboxes JavaScript -->
     <script>
         $(document).ready(function () {
             populateEventCheckboxes();

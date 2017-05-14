@@ -16,7 +16,7 @@
     include("assets/database.php");
     include("assets/authorization.php");
     ?>
-    <!-- JavaScript -->
+    <!-- Populate Table JavaScript -->
     <script>
         $(document).ready(function () {
             populateAthleteTable();
