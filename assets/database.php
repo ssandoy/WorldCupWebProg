@@ -702,7 +702,7 @@ function registerEvent() {
     }
     #regEvent via POST-calls and call save_to_DB-method.
     $description = $db->real_escape_string($_POST["description"]);
-    $datetime = date("d-m-y", strtotime($db->real_escape_string($_POST["datetime"])));
+    $datetime = $db->real_escape_string($_POST["datetime"]);
     $gender = $db->real_escape_string($_POST["gender"]);
     $sport = $db->real_escape_string($_POST["sport"]);
 
@@ -711,7 +711,7 @@ function registerEvent() {
     if (!preg_match("/^[A-Za-z0-9\\- ]{2,255}$/",$description) ){
         $okRegex = false;
         echo "Description can only include english letters, digits, hyphen (-) and space. It must be between 2 and 255 characters<br><br>";
-    } if (!preg_match("/^[0-9]{2}\\/[0-9]{2}\\/2019$/",$datetime)){
+    } if (!preg_match("/^2019\\-[0-9]{2}\\-[0-9]{2}$/",$datetime)){
         echo "You must choose a date in 2019<br><br>";
         $okRegex = false;
     } if (!($gender == "Male" || $gender == "Female")) {
@@ -721,6 +721,8 @@ function registerEvent() {
         $okRegex = false;
         echo "Please choose one of our available sports<br><br>";
     }
+
+    $datetime = date("m-d-y", strtotime($datetime));
 
     if($okRegex) {
 
