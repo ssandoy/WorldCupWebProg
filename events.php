@@ -24,7 +24,7 @@
 <body>
 <!-- Authorization -->
 <?php validateLogin() ?>
-<!-- Check in/out -->
+<!-- Delete, checkin, checkout -->
 <?php
     if (isset($_GET["deleteID"])) {
         deleteEvent($_GET["deleteID"]);

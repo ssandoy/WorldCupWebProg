@@ -42,6 +42,12 @@
 <body>
     <!-- Authorization -->
     <?php validateLogin() ?>
+    <!-- Delete -->
+    <?php
+    if (isset($_GET["deleteID"])) {
+        deleteAthlete($_GET["deleteID"]);
+    }
+    ?>
     <!-- Navbar -->
     <nav class="navbar">
         <img src="assets/images/logo.png"/>
