@@ -35,7 +35,7 @@ if (isset($_POST["eventID"])) {
                     . "<td>$row->nationality</td>"
                     . "<td>$row->gender</td>"
                     . "<td>$row->sport</td>"
-                    . "<td><a href='edit.php?id=$row->AthleteID'><button class='btn btn-sm btn-warning'>Edit</button></a> "
+                    . "<td><a href='editAthlete.php?id=$row->AthleteID'><button class='btn btn-sm btn-warning'>Edit</button></a> "
                     . "<a href='#'><button class='btn btn-sm btn-danger'>Delete</button></a></td></tr>";
             } else {
                 echo "<tr><td><b>$lastname</b> $row->firstname</td>"

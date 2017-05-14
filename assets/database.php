@@ -97,7 +97,7 @@ function editEvent(){
     $eventGender = $db->real_escape_string($_POST["gender"]);
     $eventSport = $db->real_escape_string($_POST["sport"]);
 
-    $sql = "UPDATE Event SET description = $description,datetime = $datetime,gender = $eventGender,sport = $eventSport";
+    $sql = "UPDATE Event SET description = '$description',datetime = '$datetime',gender = '$eventGender',sport = '$eventSport'";
     $sql .= " WHERE EventID = $id;";
 
     $result = $db->query($sql);
@@ -118,7 +118,7 @@ function editAthlete(){
         trigger_error($db->connect_error);
     }
 
-    #editAdmin via POST-calls and update db.
+    #editAthlete via POST-calls and update db.
     $id = $db->real_escape_string($_POST["athleteID"]);
     $firstname = $db->real_escape_string($_POST["firstname"]);
     $lastname = $db->real_escape_string($_POST["lastname"]);
@@ -127,8 +127,8 @@ function editAthlete(){
     $gender = $db->real_escape_string($_POST["gender"]);
     $sport = $db->real_escape_string($_POST["sport"]);
 
-    $sql = "UPDATE Athlete SET firstname=$firstname,lastname=$lastname,age=$age,nationality=$nationality,gender=$gender,sport=$sport";
-    $sql .= " WHERE Athlete = $id;";
+    $sql = "UPDATE Athlete SET firstname='$firstname', lastname='$lastname', age='$age', nationality='$nationality', gender='$gender', sport='$sport'";
+    $sql .= " WHERE AthleteID = $id";
 
     $result = $db->query($sql);
 
@@ -233,6 +233,93 @@ function getNextEvent() {
 //======================================================================
 // POPULATE FUNCTIONS
 //======================================================================
+function populateAthleteForm()
+{
+    if (isset($_GET["id"])) {
+        // Connect to database.
+        $db = new mysqli("student.cs.hioa.no", "s236305", "", "s236305");
+        if ($db->connect_error) {
+            trigger_error($db->connect_error);
+        }
+
+        $id = $_GET['id'];
+        echo $id;
+
+        $sql = "SELECT firstname, lastname, age, nationality, gender, sport "
+            . "FROM Athlete "
+            . "WHERE AthleteID = $id ";
+
+        $result = $db->query($sql);
+        if ($db->affected_rows > 0) {
+            $numRows = $db->affected_rows;
+            for ($i = 0; $i < $numRows; $i++) {
+                $row = $result->fetch_object();
+                echo "<input class='form-control' name='athleteID' type='hidden' value='$id'></td>"
+                    ."<p>First name:</p>"
+                    . "<input class='form-control' name='firstname' type='text' value='$row->firstname'></td>"
+                    . "<p>Last name:</p>"
+                    . "<input class='form-control' name='lastname' type='text' value='$row->lastname'></td>"
+                    . "<p>Age:</p>"
+                    . "<input class='form-control' name='age' type='number' value='$row->age'></td>"
+                    . "<p>Nationality:</p>"
+                    . "<input class='form-control' name='nationality' type='text' value='$row->nationality'></td>"
+                    . "<p>Gender:</p>"
+                    . "<select class='form-control' id='athleteGender' name='gender' value='$row->gender' readonly>
+                        <option>Male</option>
+                        <option>Female</option>
+                   </select>"
+                    . "<p>Sport:</p>"
+                    . "<select class='form-control' id='athleteSport' name='sport' value='$row->sport' readonly>
+                       <option>Cross-country</option>
+                       <option>Nordic combined</option>
+                       <option>Ski jumping</option>
+                    </select> ";
+            }
+        }
+        // Close database connection.
+        $db->close();
+
+    }
+}
+
+function populateEventForm()
+{
+    if (isset($_GET["id"])) {
+        // Connect to database.
+        $db = new mysqli("student.cs.hioa.no", "s236305", "", "s236305");
+        if ($db->connect_error) {
+            trigger_error($db->connect_error);
+        }
+
+        $id = $_GET['id'];
+        echo $id;
+
+        $sql = "SELECT description, gender, sport, datetime "
+            . "FROM Event "
+            . "WHERE EventID = $id ";
+
+        $result = $db->query($sql);
+        if ($db->affected_rows > 0) {
+            $numRows = $db->affected_rows;
+            for ($i = 0; $i < $numRows; $i++) {
+                $row = $result->fetch_object();
+                echo "<input class='form-control' name='eventID'  type='hidden' value='$id'></td>"
+                    ."<p>Description:</p>"
+                    . "<input class='form-control' name='description' type='text' value='$row->description'></td>"
+                    . "<p>Sport:</p>"
+                    . "<input class='form-control' name='gender' type='text' value='$row->sport' readonly></td>"
+                    . "<p>Gender:</p>"
+                    . "<input class='form-control' name='sport' type='text' value='$row->gender' readonly></td>"
+                    . "<p>Datetime</p>"
+                    . "<input class='form-control' name='datetime' type='text' value='$row->datetime'/>";
+            }
+        }
+        // Close database connection.
+        $db->close();
+
+    }
+}
+
 
 function populateEventsDropdown() {
     // Connect to database.
@@ -328,7 +415,7 @@ function populateEventsTable() {
                 echo "<tr><td>$dateString</td>"
                     . "<td>$gender $row->sport</td>"
                     . "<td>$row->description</td>"
-                    . "<td><a href='edit.php?id=$row->EventID'><button class='btn btn-sm btn-warning'>Edit</button></a> "
+                    . "<td><a href='editEvent.php?id=$row->EventID'><button class='btn btn-sm btn-warning'>Edit</button></a> "
                     . "<a href='#'><button class='btn btn-sm btn-danger'>Delete</button></a></td></tr>";
             } else {
                 echo "<tr><td>$dateString</td>"
