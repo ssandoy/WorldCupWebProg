@@ -243,7 +243,6 @@ function populateAthleteForm()
         }
 
         $id = $_GET['id'];
-        echo $id;
 
         $sql = "SELECT firstname, lastname, age, nationality, gender, sport "
             . "FROM Athlete "
@@ -292,7 +291,6 @@ function populateEventForm()
         }
 
         $id = $_GET['id'];
-        echo $id;
 
         $sql = "SELECT description, gender, sport, datetime "
             . "FROM Event "

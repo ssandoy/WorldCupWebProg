@@ -40,7 +40,7 @@
         <div class="cell-container">
             <div class="row" id="athleteForm">
                 <form action="" method="POST">
-                    <div class="col-sm-8 compact-column">
+                    <div class="col-sm-12 compact-column">
                         <div class="white-cell">
                             <?php populateAthleteForm(); ?>
                             <input class="btn" name="editAthlete" type="submit" value="Update">

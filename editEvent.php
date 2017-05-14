@@ -41,7 +41,7 @@
         <div class="cell-container">
             <div class="row" id="eventForm">
                 <form action="" method="POST">
-                    <div class="col-sm-8 compact-column">
+                    <div class="col-sm-12 compact-column">
                         <div class="white-cell">
                             <?php populateEventForm(); ?>
                             <input class="btn" name="updateEvent" type="submit" value="Update">
@@ -51,9 +51,6 @@
                             }
                             ?>
                         </div>
-                    </div>
-                    <div class="col-sm-4 compact-column">
-                        <div class="white-cell" id="athleteCheckboxes"></div>
                     </div>
                 </form>
             </div>
