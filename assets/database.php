@@ -116,6 +116,7 @@ function editAthlete(){
     $result = $db->query($sql);
 
     if ($result === TRUE) {
+        header("location:admin.php");
         echo "Record updated successfully";
     } else {
         echo "Error updating record: " . $db->error;
@@ -446,6 +447,27 @@ function registerAdmin() {
     $row = $db->query($sql);
     $exists = mysqli_num_rows($row) != 0;
 
+    $okRegex = true;
+    //REGEX
+    if (!preg_match("/^[A-Za-z\\- ]{2,20}$/",$firstname) ){
+        $okRegex = false;
+        echo "Firstname can only include english letters, hyphen (-) and space. It must be between 2 and 20 characters<br><br>";
+    } else if (!preg_match("/^[A-Za-z\\- ]{2,20}$/",$lastname)){
+        $okRegex = false;
+        echo "Lastname can only include english letters, hyphen (-) and space. It must be between 2 and 20 characters<br><br>";
+    } else if (!preg_match("/^[0-9]{8}$/",$phoneNr)) {
+        $okRegex = false;
+        echo "Phone number can only include digits. It must be between 8 and 15 characters<br><br>";
+    } else if (!preg_match("/^[A-Za-z\\-]{2,20}$/",$username)) {
+        $okRegex = false;
+        echo "Username can only include english letters, digits and hyphen (-). It must be between 6 and 20 characters<br><br>";
+    } else if (!preg_match("/^[A-Za-z0-9\\-]{6,20}$/",$password)) {
+        $okRegex = false;
+        echo "Password can only include english letters, digits and hyphen (-). It must be between 6 and 20 characters<br><br>";
+    }
+
+
+    if($okRegex) {
     $admin = new Admin($firstname, $lastname, $phoneNr, $username, $password);
 
     $okTransaction = true;
@@ -461,6 +483,7 @@ function registerAdmin() {
         ob_start();
         //header("Location: feilmelding.html");
         ob_flush();
+    }
     }
     // Close database connection.
     $db->close();
@@ -481,21 +504,41 @@ function registerSpectator() {
     $username = $db->real_escape_string($_POST["username"]);
     $password = $db->real_escape_string($_POST["password"]);
 
-
-    $spectator = new Spectator($firstname, $lastname, $phoneNr, $email, $username, $password);
-
-    $okTransaction = true;
-    #TODO: Hente ut ID for Spectator her?
-    if (!$spectator->save_to_db($db) || $db->affected_rows == 0) {
-        $okTransaction = false;
+    $okRegex = true;
+    //REGEX
+    if (!preg_match("/^[A-Za-z\\- ]{2,20}$/",$firstname) ){
+        $okRegex = false;
+        echo "Firstname can only include english letters, hyphen (-) and space. It must be between 2 and 20 characters<br><br>";
+    } else if (!preg_match("/^[A-Za-z\\- ]{2,20}$/",$lastname)){
+        $okRegex = false;
+        echo "Lastname can only include english letters, hyphen (-) and space. It must be between 2 and 20 characters<br><br>";
+    } else if (!preg_match("/^[0-9]{8}$/",$phoneNr)) {
+        $okRegex = false;
+        echo "Phone number can only include digits. It must be between 8 and 15 characters<br><br>";
+    } else if (!preg_match("/^[A-Za-z\\-]{2,20}$/",$username)) {
+        $okRegex = false;
+        echo "Username can only include english letters, digits and hyphen (-). It must be between 2 and 20 characters<br><br>";
+    } else if (!preg_match("/^[A-Za-z0-9\\-]{6,20}$/",$password)) {
+        $okRegex = false;
+        echo "Password can only include english letters, digits and hyphen (-). It must be between 6 and 20 characters<br><br>";
     }
-    if ($okTransaction) {
-        $db->commit();
-    } else {
-        $db->rollback();
-        ob_start();
-        //header("Location: feilmelding.html");
-        ob_flush();
+
+    if($okRegex) {
+        $spectator = new Spectator($firstname, $lastname, $phoneNr, $email, $username, $password);
+
+        $okTransaction = true;
+        #TODO: Hente ut ID for Spectator her?
+        if (!$spectator->save_to_db($db) || $db->affected_rows == 0) {
+            $okTransaction = false;
+        }
+        if ($okTransaction) {
+            $db->commit();
+        } else {
+            $db->rollback();
+            ob_start();
+            //header("Location: feilmelding.html");
+            ob_flush();
+        }
     }
     // Close database connection.
     $db->close();
@@ -516,45 +559,69 @@ function registerAthlete() {
     $gender = $db->real_escape_string($_POST["gender"]);
     $sport = $db->real_escape_string($_POST["sport"]);
 
-    $athlete = new Athlete($firstname, $lastname, $age, $nationality, $gender, $sport);
-
-    $okTransaction = true;
-    if (!$athlete->save_to_db($db) || $db->affected_rows == 0) {
-        $okTransaction = false;
+    $okRegex = true;
+    //REGEX
+    if (!preg_match("/^[A-Za-z\\- ]{2,20}$/",$firstname) ){
+        $okRegex = false;
+        echo "Firstname can only include english letters, hyphen (-) and space. It must be between 2 and 20 characters<br><br>";
+    } if (!preg_match("/^[A-Za-z\\- ]{2,20}$/",$lastname)){
+        $okRegex = false;
+        echo "Lastname can only include english letters, hyphen (-) and space. It must be between 2 and 20 characters<br><br>";
+    }  if (!preg_match("/^[0-9]{2}$/",$age)) {
+        $okRegex = false;
+        echo "Age can only include digits. It must be between 8 and 15 characters<br><br>";
+    }  if (!preg_match("/^[A-Za-z\\- ]{2,20}$/",$nationality)) {
+        $okRegex = false;
+        echo "Nationality can only include english letters, digits and hyphen (-). It must be between 2 and 20 characters<br><br>";
+    } if (!($gender == "Male" || $gender == "Female")) {
+        $okRegex = false;
+        echo "Invalid gender<br><br>";
+    } if (!($sport == "Cross-country" || $sport == "Nordic combined" || $sport == "Ski jumping")) {
+        $okRegex = false;
+        echo "Please choose one of our available sports<br><br>";
     }
-    if ($okTransaction) {
-        $athleteID = $db->insert_id;
-        $db->commit();
-    } else {
-        $db->rollback();
-        ob_start();
-        //header("Location: feilmelding.html");
-        ob_flush();
-    }
 
-    if(isset($_POST["events"])){
-        #regEventAthlete via POST-calls and call save_to_DB-method.
+    if($okRegex) {
 
-        foreach ($_POST['events'] as $value) {
-            $eventID =$value;
-            $eventAthlete = new EventAthlete($eventID, $athleteID);
-            $okTransaction = true;
-            if (!$eventAthlete->save_to_db($db) || $db->affected_rows == 0) {
-                $okTransaction = false;
-            }
-            if ($okTransaction) {
-                $db->commit();
-            } else {
-                $db->rollback();
-                ob_start();
-                header("Location: feilmelding.html");
-                ob_flush();
-            }
+        $athlete = new Athlete($firstname, $lastname, $age, $nationality, $gender, $sport);
+
+        $okTransaction = true;
+        if (!$athlete->save_to_db($db) || $db->affected_rows == 0) {
+            $okTransaction = false;
         }
-    }else {
-        header("Location:index.php");
-    }
+        if ($okTransaction) {
+            $athleteID = $db->insert_id;
+            $db->commit();
+        } else {
+            $db->rollback();
+            ob_start();
+            //header("Location: feilmelding.html");
+            ob_flush();
+        }
 
+        if (isset($_POST["events"])) {
+            #regEventAthlete via POST-calls and call save_to_DB-method.
+
+            foreach ($_POST['events'] as $value) {
+                $eventID = $value;
+                $eventAthlete = new EventAthlete($eventID, $athleteID);
+                $okTransaction = true;
+                if (!$eventAthlete->save_to_db($db) || $db->affected_rows == 0) {
+                    $okTransaction = false;
+                }
+                if ($okTransaction) {
+                    $db->commit();
+                } else {
+                    $db->rollback();
+                    ob_start();
+                    header("Location: feilmelding.html");
+                    ob_flush();
+                }
+            }
+        } else {
+            header("Location:index.php");
+        }
+    }
 
     // Close database connection.
     $db->close();
@@ -572,43 +639,62 @@ function registerEvent() {
     $gender = $db->real_escape_string($_POST["gender"]);
     $sport = $db->real_escape_string($_POST["sport"]);
 
-    $event = new Event($description, $datetime, $gender ,$sport);
-
-    $okTransaction = true;
-    if (!$event->save_to_db($db) || $db->affected_rows == 0) {
-        $okTransaction = false;
+    $okRegex = true;
+    //REGEX
+    if (!preg_match("/^[A-Za-z0-9\\- ]{2,255}$/",$description) ){
+        $okRegex = false;
+        echo "Description can only include english letters, digits, hyphen (-) and space. It must be between 2 and 255 characters<br><br>";
+    } if (!preg_match("/^[0-9]{2}\\/[0-9]{2}\\/2019$/",$datetime)){
+        echo "You must choose a date in 2019<br><br>";
+        $okRegex = false;
+    } if (!($gender == "Male" || $gender == "Female")) {
+        $okRegex = false;
+        echo "Invalid gender<br><br>";
+    } if (!($sport == "Cross-country" || $sport == "Nordic combined" || $sport == "Ski jumping")) {
+        $okRegex = false;
+        echo "Please choose one of our available sports<br><br>";
     }
-    if ($okTransaction) {
-        $eventID = $db->insert_id;
-        $db->commit();
-    } else {
-        $db->rollback();
-        ob_start();
-        //header("Location: feilmelding.html");
-        ob_flush();
-    }
 
-    if(isset($_POST["athletes"])){
-        #regEventAthlete via POST-calls and call save_to_DB-method.
+    if($okRegex) {
 
-        foreach ($_POST['athletes'] as $value) {
-            $athleteID =$value;
-            $eventAthlete = new EventAthlete($eventID, $athleteID);
-            $okTransaction = true;
-            if (!$eventAthlete->save_to_db($db) || $db->affected_rows == 0) {
-                $okTransaction = false;
-            }
-            if ($okTransaction) {
-                $db->commit();
-            } else {
-                $db->rollback();
-                ob_start();
-                header("Location: feilmelding.html");
-                ob_flush();
-            }
+        $event = new Event($description, $datetime, $gender, $sport);
+
+        $okTransaction = true;
+        if (!$event->save_to_db($db) || $db->affected_rows == 0) {
+            $okTransaction = false;
         }
-    }else {
-        header("Location:index.php");
+        if ($okTransaction) {
+            $eventID = $db->insert_id;
+            $db->commit();
+        } else {
+            $db->rollback();
+            ob_start();
+            //header("Location: feilmelding.html");
+            ob_flush();
+        }
+
+        if (isset($_POST["athletes"])) {
+            #regEventAthlete via POST-calls and call save_to_DB-method.
+
+            foreach ($_POST['athletes'] as $value) {
+                $athleteID = $value;
+                $eventAthlete = new EventAthlete($eventID, $athleteID);
+                $okTransaction = true;
+                if (!$eventAthlete->save_to_db($db) || $db->affected_rows == 0) {
+                    $okTransaction = false;
+                }
+                if ($okTransaction) {
+                    $db->commit();
+                } else {
+                    $db->rollback();
+                    ob_start();
+                    header("Location: feilmelding.html");
+                    ob_flush();
+                }
+            }
+        } else {
+            header("Location:index.php");
+        }
     }
     
     // Close database connection.
