@@ -80,6 +80,7 @@ function editAdmin() {
         $result = $db->query($sql);
 
         if ($result === TRUE) {
+            header("location:admin.php");
             echo "Record updated successfully";
         } else {
             echo "Error updating record: " . $db->error;
@@ -100,8 +101,8 @@ function editEvent(){
     $id = $db->real_escape_string($_POST["eventID"]);
     $description = $db->real_escape_string($_POST["description"]);
     $datetime = $db->real_escape_string($_POST["datetime"]);
-    $eventGender = $db->real_escape_string($_POST["gender"]);
-    $eventSport = $db->real_escape_string($_POST["sport"]);
+    $gender = $db->real_escape_string($_POST["gender"]);
+    $sport = $db->real_escape_string($_POST["sport"]);
 
     $okRegex = true;
     //REGEX
@@ -111,22 +112,23 @@ function editEvent(){
     } if (!preg_match("/^[0-9]{2}\\/[0-9]{2}\\/2019$/",$datetime)){
         echo "You must choose a date in 2019<br><br>";
         $okRegex = false;
-    } if (!($gender == "Male" || $gender == "Female")) {
+    } if (!($eventGender == "Male" || $gender == "Female")) {
         $okRegex = false;
         echo "Invalid gender<br><br>";
-    } if (!($sport == "Cross-country" || $sport == "Nordic combined" || $sport == "Ski jumping")) {
+    } if (!(event == "Cross-country" || $sport == "Nordic combined" || $sport == "Ski jumping")) {
         $okRegex = false;
         echo "Please choose one of our available sports<br><br>";
     }
 
     if($okRegex) {
 
-        $sql = "UPDATE Event SET description = '$description',datetime = '$datetime',gender = '$eventGender',sport = '$eventSport'";
+        $sql = "UPDATE Event SET description = '$description',datetime = '$datetime',gender = '$gender',sport = '$sport'";
         $sql .= " WHERE EventID = $id;";
 
         $result = $db->query($sql);
 
         if ($result === TRUE) {
+            header("location:events.php");
             echo "Record updated successfully";
         } else {
             echo "Error updating record: " . $db->error;
@@ -182,7 +184,7 @@ function editAthlete(){
         $result = $db->query($sql);
 
         if ($result === TRUE) {
-            header("location:admin.php");
+            header("location:athletes.php");
             echo "Record updated successfully";
         } else {
             echo "Error updating record: " . $db->error;
