@@ -10,7 +10,7 @@ body {
     background-repeat: no-repeat;
 }
 
-p, h1, h2, h3, h4, option, select, .navbar li a {
+p, b, h1, h2, h3, h4, option, select, .navbar li a {
     font-family: 'Roboto Condensed', sans-serif;
 }
 
@@ -139,4 +139,35 @@ h2 option {
 .red-row {
     background-color: #ED1D36;
     color: #FFF;
+}
+
+/*
+ *
+ * LOGIN WINDOW
+ *
+ */
+
+.loginWindow {
+    background-color: #EEE;
+    border: solid 1px #333333;
+    margin: 0 auto;
+    margin-top: 50px;
+    text-align: left;
+    width: 400px;
+}
+
+.loginHeader {
+    background-color: #333333;
+    color: #FFFFFF;
+    padding: 3px;
+}
+
+.loginBody {
+    margin: 30px
+}
+
+.loginMessage {
+    color:#cc0000;
+    font-size: 11px;
+    margin-top:10px
 }
