@@ -308,13 +308,17 @@ function populateAthleteForm()
                 $row = $result->fetch_object();
                 echo "<input class='form-control' name='athleteID' type='hidden' value='$id'></td>"
                     ."<p>First name:</p>"
-                    . "<input class='form-control' name='firstname' type='text' value='$row->firstname'></td>"
+                    . "<input class='form-control' id='athleteFirstname' name='firstname' onchange='validate_athleteFirstname()' type='text' value='$row->firstname'></td>"
+                    . "<div id='athleteFirstnameMessage'></div>"
                     . "<p>Last name:</p>"
-                    . "<input class='form-control' name='lastname' type='text' value='$row->lastname'></td>"
+                    . "<input class='form-control' id='athleteLastname' name='lastname' onchange='validate_athleteLastname()' type='text' value='$row->lastname'></td>"
+                    . "<div id='athleteLastnameMessage'></div>"
                     . "<p>Age:</p>"
-                    . "<input class='form-control' name='age' type='number' value='$row->age'></td>"
+                    . "<input class='form-control' id='athleteAge' name='age' onchange='validate_athleteAge()' type='number' value='$row->age'></td>"
+                    . "<div id='athleteAgeMessage'></div>"
                     . "<p>Nationality:</p>"
-                    . "<input class='form-control' name='nationality' type='text' value='$row->nationality'></td>"
+                    . "<input class='form-control' id='athleteNationality' name='nationality' onchange='validate_athleteNationality()' type='text' value='$row->nationality'></td>"
+                    . "<div id='athleteNationalityMessage'></div>"
                     . "<p>Gender:</p>"
                     . "<select class='form-control' id='athleteGender' name='gender' value='$row->gender' readonly>
                         <option>Male</option>

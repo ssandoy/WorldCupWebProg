@@ -11,6 +11,8 @@
     <link rel="stylesheet" type="text/css" href="assets/css/stylesheet.css"/>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed" rel="stylesheet">
+    <!-- Client validation -->
+    <script src="assets/javascript/clientValidation.js"></script>
     <!-- PHP -->
     <?php
     include("assets/database.php");
@@ -39,7 +41,7 @@
     <div class="main-container">
         <div class="cell-container">
             <div class="row" id="athleteForm">
-                <form action="" method="POST">
+                <form action="" method="POST" onsubmit="validate_athlete()">
                     <div class="col-sm-12 compact-column">
                         <div class="white-cell">
                             <?php populateAthleteForm(); ?>
