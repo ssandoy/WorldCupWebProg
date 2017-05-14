@@ -109,16 +109,18 @@ function editEvent(){
     if (!preg_match("/^[A-Za-z0-9\\- ]{2,255}$/",$description) ){
         $okRegex = false;
         echo "Description can only include english letters, digits, hyphen (-) and space. It must be between 2 and 255 characters<br><br>";
-    } if (!preg_match("/^[0-9]{2}\\/[0-9]{2}\\/2019$/",$datetime)){
+    } if (!preg_match("/^2019\\-[0-9]{2}\\-[0-9]{2}$/",$datetime)){
         echo "You must choose a date in 2019<br><br>";
         $okRegex = false;
-    } if (!($eventGender == "Male" || $gender == "Female")) {
+    } if (!($gender == "Male" || $gender == "Female")) {
         $okRegex = false;
         echo "Invalid gender<br><br>";
-    } if (!(event == "Cross-country" || $sport == "Nordic combined" || $sport == "Ski jumping")) {
+    } if (!($sport == "Cross-country" || $sport == "Nordic combined" || $sport == "Ski jumping")) {
         $okRegex = false;
         echo "Please choose one of our available sports<br><br>";
     }
+
+    $datetime = date("m-d-y", strtotime($datetime));
 
     if($okRegex) {
 
@@ -358,9 +360,9 @@ function populateEventForm()
                     . "<input class='form-control' id='eventDescription' name='description' onchange='validate_eventDescription()' type='text' value='$row->description'></td>"
                     . "<div id='eventDescriptionMessage'></div>"
                     . "<p>Sport:</p>"
-                    . "<input class='form-control' name='gender' type='text' value='$row->sport' readonly></td>"
+                    . "<input class='form-control' name='sport' type='text' value='$row->sport' readonly></td>"
                     . "<p>Gender:</p>"
-                    . "<input class='form-control' name='sport' type='text' value='$row->gender' readonly></td>"
+                    . "<input class='form-control' name='gender' type='text' value='$row->gender' readonly></td>"
                     . "<p>Datetime</p>"
                     . "<input class='form-control' id='eventDatetime' name='datetime' onchange='validate_eventDatetime()' type='date' value='$date'/>"
                     . "<div id='eventDatetimeMessage'></div>";
