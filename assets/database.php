@@ -351,6 +351,8 @@ function populateEventForm()
             $numRows = $db->affected_rows;
             for ($i = 0; $i < $numRows; $i++) {
                 $row = $result->fetch_object();
+                $datetime = $row->datetime;
+                $date = date_format(date_create_from_format("m-d-y", $datetime), "Y-m-d");
                 echo "<input class='form-control' name='eventID'  type='hidden' value='$id'></td>"
                     ."<p>Description:</p>"
                     . "<input class='form-control' id='eventDescription' name='description' onchange='validate_eventDescription()' type='text' value='$row->description'></td>"
@@ -360,7 +362,7 @@ function populateEventForm()
                     . "<p>Gender:</p>"
                     . "<input class='form-control' name='sport' type='text' value='$row->gender' readonly></td>"
                     . "<p>Datetime</p>"
-                    . "<input class='form-control' id='eventDatetime' name='datetime' onchange='validate_eventDatetime()' type='text' value='$row->datetime'/>"
+                    . "<input class='form-control' id='eventDatetime' name='datetime' onchange='validate_eventDatetime()' type='date' value='$date'/>"
                     . "<div id='eventDatetimeMessage'></div>";
             }
         }
