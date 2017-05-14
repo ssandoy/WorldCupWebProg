@@ -318,7 +318,6 @@ function populateEventForm()
     }
 }
 
-
 function populateEventsDropdown() {
     // Connect to database.
     $db = new mysqli("student.cs.hioa.no", "s236305", "", "s236305");
@@ -355,8 +354,8 @@ function populateEventSpectatorTable() {
     if ($db->connect_error) {
         trigger_error($db->connect_error);
     }
-    // Get the ID of the logged in spectator. TODO
-    $id = 1;
+    // Get the ID of the logged in spectator.
+    $id = $_SESSION["spectatorID"];
     // Execute SQL query.
     $sql = "SELECT description, datetime, gender, sport "
         . "FROM Event "
@@ -395,7 +394,6 @@ function populateEventsTable() {
     $sql = "SELECT EventID, description, datetime, gender, sport "
          . "FROM Event "
          . "ORDER BY datetime ASC;";
-
     $result = $db->query($sql);
     // Echo out all rows.
     if ($db->affected_rows > 0) {
@@ -415,11 +413,29 @@ function populateEventsTable() {
                     . "<td>$row->description</td>"
                     . "<td><a href='editEvent.php?id=$row->EventID'><button class='btn btn-sm btn-warning'>Edit</button></a> "
                     . "<a href='#'><button class='btn btn-sm btn-danger'>Delete</button></a></td></tr>";
-            } else {
+            } else if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]) {
                 echo "<tr><td>$dateString</td>"
                     . "<td>$gender $row->sport</td>"
-                    . "<td>$row->description</td>"
-                    . "<td><a href='#'><button class='btn btn-sm btn-success'>Check In</button></a></td></tr>";
+                    . "<td>$row->description</td>";
+                // Execute SQL query.
+                $sql = "SELECT Event "
+                    . "FROM EventSpectator "
+                    . "WHERE EventSpectator.Spectator LIKE " . $_SESSION['spectatorID'] . " "
+                    . "AND EventSpectator.Event LIKE " . $row->EventID . ";";
+                $result2 = $db->query($sql);
+                if ($db->affected_rows == 1) {
+                    $row2 = $result2->fetch_object();
+                    echo "<td><form method='POST' action=''>"
+                        . "<input hidden name='checkoutID' value='$row2->Event'>"
+                        . "<input class='btn btn-warning btn-sm' name='checkout' type='submit' value='Check out'>"
+                        . "</form></td></tr>";
+                } else {
+                    $row2 = $result2->fetch_object();
+                    echo "<td><form method='POST' action=''>"
+                        . "<input hidden name='checkinID' value='$row->EventID'>"
+                        . "<input class='btn btn-success btn-sm' name='checkin' type='submit' value='Check in'>"
+                        . "</form></td></tr>";
+                }
             }
         }
     }
@@ -648,6 +664,42 @@ function registerEventAthlete() {
     $db->close();
 }
 
+//======================================================================
+// CHECK IN AND OUT FUNCTIONS
+//======================================================================
+
+function checkin($eventID) {
+    // Connect to database.
+    $db = new mysqli("student.cs.hioa.no", "s236305", "", "s236305");
+    if ($db->connect_error) {
+        trigger_error($db->connect_error);
+    }
+    // Get the ID of the logged in spectator.
+    $spectatorID = $_SESSION["spectatorID"];
+    // Execute SQL query.
+    $sql = "INSERT INTO EventSpectator (Event, Spectator) "
+        . "VALUES ('$eventID','$spectatorID')";
+    $db->query($sql);
+    // Close database connection.
+    $db->close();
+}
+
+function checkout($eventID) {
+    // Connect to database.
+    $db = new mysqli("student.cs.hioa.no", "s236305", "", "s236305");
+    if ($db->connect_error) {
+        trigger_error($db->connect_error);
+    }
+    // Get the ID of the logged in spectator.
+    $spectatorID = $_SESSION["spectatorID"];
+    // Execute SQL query.
+    $sql = "DELETE FROM EventSpectator "
+        . "WHERE Event = '$eventID' "
+        . "AND Spectator = '$spectatorID'";
+    $db->query($sql);
+    // Close database connection.
+    $db->close();
+}
 
 //======================================================================
 // OTHER FUNCTIONS TODO: Fix and categorize these

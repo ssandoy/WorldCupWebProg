@@ -24,6 +24,15 @@
 <body>
 <!-- Authorization -->
 <?php validateLogin() ?>
+<!-- Check in/out -->
+<?php
+    if (isset($_POST["checkin"])) {
+        checkin($_POST["checkinID"]);
+    }
+    if (isset($_POST["checkout"])) {
+        checkout($_POST["checkoutID"]);
+    }
+?>
     <!-- Navbar -->
     <nav class="navbar">
         <img src="assets/images/logo.png" />
