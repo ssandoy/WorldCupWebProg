@@ -6,47 +6,30 @@ include("classes.php");
 // DELETE FUNCTIONS
 //======================================================================
 
-function deleteAthlete() {
+function deleteAthlete($id) {
     // Connect to database.
     $db = new mysqli("student.cs.hioa.no", "s236305", "", "s236305");
     if ($db->connect_error) {
         trigger_error($db->connect_error);
     }
-    // Get the ID of the logged in admin.
-    $id =  $_POST['athleteID'];  //FIXME
     // Execute SQL query.
-    $sql = "Delete FROM Athlete"
-        . "WHERE AthleteID = $id;";
-    $result = $db->query($sql);
-
-    if ($result === TRUE) {
-        echo "Record deleted successfully";
-    } else {
-        echo "Error deleting record: " . $db->error;
-    }
+    $sql = "DELETE FROM Athlete "
+        . "WHERE AthleteID = '$id';";
+    $db->query($sql);
     // Close database connection.
     $db->close();
 }
 
-function deleteEvent() {
+function deleteEvent($id) {
     // Connect to database.
     $db = new mysqli("student.cs.hioa.no", "s236305", "", "s236305");
     if ($db->connect_error) {
         trigger_error($db->connect_error);
     }
-
-    // Get the ID of the logged in admin. T
-    $id = $_POST['eventID'];//FIXME
     // Execute SQL query.
-    $sql = "Delete FROM Event"
-        . "WHERE EventID = $id;";
-    $result = $db->query($sql);
-
-    if ($result === TRUE) {
-        echo "Record deleted successfully";
-    } else {
-        echo "Error deleting record: " . $db->error;
-    }
+    $sql = "DELETE FROM Event "
+        . "WHERE EventID = '$id';";
+    $db->query($sql);
     // Close database connection.
     $db->close();
 }
@@ -411,8 +394,10 @@ function populateEventsTable() {
                 echo "<tr><td>$dateString</td>"
                     . "<td>$gender $row->sport</td>"
                     . "<td>$row->description</td>"
-                    . "<td><a href='editEvent.php?id=$row->EventID'><button class='btn btn-sm btn-warning'>Edit</button></a> "
-                    . "<a href='#'><button class='btn btn-sm btn-danger'>Delete</button></a></td></tr>";
+                    . "<td>"//<form method='POST' action=''>"
+                    . "<a href='editEvent.php?id=$row->EventID'><button class='btn btn-sm btn-warning'>Edit</button></a> "
+                    . "<a href='events.php?deleteID=$row->EventID'><button class='btn btn-sm btn-danger'>Delete</button></a>"
+                    . "</td></tr>";
             } else if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]) {
                 echo "<tr><td>$dateString</td>"
                     . "<td>$gender $row->sport</td>"
@@ -425,16 +410,11 @@ function populateEventsTable() {
                 $result2 = $db->query($sql);
                 if ($db->affected_rows == 1) {
                     $row2 = $result2->fetch_object();
-                    echo "<td><form method='POST' action=''>"
-                        . "<input hidden name='checkoutID' value='$row2->Event'>"
-                        . "<input class='btn btn-warning btn-sm' name='checkout' type='submit' value='Check out'>"
-                        . "</form></td></tr>";
+                    echo "<td><a href='events.php?checkoutID=$row2->Event'>"
+                        . "<button class='btn btn-sm btn-warning'>Check out</button></a></td></tr>";
                 } else {
-                    $row2 = $result2->fetch_object();
-                    echo "<td><form method='POST' action=''>"
-                        . "<input hidden name='checkinID' value='$row->EventID'>"
-                        . "<input class='btn btn-success btn-sm' name='checkin' type='submit' value='Check in'>"
-                        . "</form></td></tr>";
+                    echo "<td><a href='events.php?checkinID=$row->EventID'>"
+                        . "<button class='btn btn-sm btn-success'>Check in</button></a></td></tr>";
                 }
             }
         }
@@ -747,30 +727,6 @@ function registerEventSpectator() {
         {
             $rad = $resultat->fetch_object();
             echo $rad->username." ".$rad->firstname." ".$rad->lastname." ".$rad->phonenumber." ".$rad->email."<br/>";
-        }
-
-    }
-    else
-    {
-        echo "Fant ingen rader som oppfylte søket!";
-    }
-    $db->close();
-}*/
-
-/*function listEventAthletes() {
-    $eventID = $_GET["eventID"];
-    $sql = "Select A.firstname, A.lastname, A.age, A.nationality from Athlete as A";
-    $sql .= "JOIN EventAthlete ON A.AthleteID = EventAthlete.Athlete WHERE EventAthlete.Event LIKE ".$eventID;
-    $resultat = $db->query($sql);
-
-    if($db->affected_rows>0)
-    {
-        $antallRader = $db->affected_rows;
-        echo "Antall rader funnet : $antallRader <br/>";
-        for ($i=0;$i<$antallRader;$i++)
-        {
-            $rad = $resultat->fetch_object();
-            echo $rad->firstname." ".$rad->lastname." ".$rad->age." ".$rad->nationality."<br/>";
         }
 
     }

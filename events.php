@@ -26,11 +26,14 @@
 <?php validateLogin() ?>
 <!-- Check in/out -->
 <?php
-    if (isset($_POST["checkin"])) {
-        checkin($_POST["checkinID"]);
+    if (isset($_GET["deleteID"])) {
+        deleteEvent($_GET["deleteID"]);
     }
-    if (isset($_POST["checkout"])) {
-        checkout($_POST["checkoutID"]);
+    if (isset($_GET["checkinID"])) {
+        checkin($_GET["checkinID"]);
+    }
+    if (isset($_GET["checkoutID"])) {
+        checkout($_GET["checkoutID"]);
     }
 ?>
     <!-- Navbar -->
