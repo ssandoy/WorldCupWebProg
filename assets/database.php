@@ -319,17 +319,10 @@ function populateAthleteForm()
                     . "<p>Nationality:</p>"
                     . "<input class='form-control' id='athleteNationality' name='nationality' onchange='validate_athleteNationality()' type='text' value='$row->nationality'></td>"
                     . "<div id='athleteNationalityMessage'></div>"
-                    . "<p>Gender:</p>"
-                    . "<select class='form-control' id='athleteGender' name='gender' value='$row->gender' readonly>
-                        <option>Male</option>
-                        <option>Female</option>
-                   </select>"
                     . "<p>Sport:</p>"
-                    . "<select class='form-control' id='athleteSport' name='sport' value='$row->sport' readonly>
-                       <option>Cross-country</option>
-                       <option>Nordic combined</option>
-                       <option>Ski jumping</option>
-                    </select> ";
+                    . "<input class='form-control' name='gender' type='text' value='$row->sport' readonly></td>"
+                    . "<p>Gender:</p>"
+                    . "<input class='form-control' name='sport' type='text' value='$row->gender' readonly></td>";
             }
         }
         // Close database connection.
