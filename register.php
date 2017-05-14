@@ -20,6 +20,8 @@
     <title>WSC - Seefeld 2019</title>
     <meta charset="UTF-8">
     <meta name="author" content="Sindre Beba, Sander Sandøy">
+
+    <script src="assets/javascript/clientValidation.js"></script>
 </head>
 <body>
 <!-- Authorization -->
@@ -38,19 +40,25 @@
         <div class="col-sm-12 compact-column">
             <div class="white-cell">
                 <h2>Register new account</h2>
-                <form action="" method="POST">
+                <form action="" method="POST" onsubmit="return validate_spectator()">
                     <p>Username:</p>
-                    <input class="form-control" name="username" type="text"/>
+                    <input class="form-control" id="spectatorUsername" name="username" onchange="validate_spectatorUsername()" type="text"/>
+                    <div id="spectatorUsernameMessage"></div>
                     <p>Password:</p>
-                    <input class="form-control" name="password" type="password"/>
+                    <input class="form-control" id="spectatorPassword" name="password" onchange="validate_spectatorPassword()" type="password"/>
+                    <div id="spectatorPasswordMessage"></div>
                     <p>First name:</p>
-                    <input class="form-control" name="firstname" type="text"/>
+                    <input class="form-control" id="spectatorFirstname" name="firstname" onchange="validate_spectatorFirstname()" type="text"/>
+                    <div id="spectatorFirstnameMessage"></div>
                     <p>Last name:</p>
-                    <input class="form-control" name="lastname" type="text"/>
+                    <input class="form-control" id="spectatorLastname" name="lastname" onchange="validate_spectatorLastname()" type="text"/>
+                    <div id="spectatorLastnameMessage"></div>
                     <p>Phone number:</p>
-                    <input class="form-control" name="phoneNr" type="text"/>
+                    <input class="form-control" id="spectatorPhoneNr" name="phoneNr" onchange="validate_spectatorPhoneNr()" type="text"/>
+                    <div id="spectatorPhoneNrMessage"></div>
                     <p>E-mail:</p>
-                    <input class="form-control" name="email" type="text"/>
+                    <input class="form-control" id="spectatorEmail" name="email" onchange="validate_spectatorEmail()" type="text"/>
+                    <div id="spectatorEmailMessage"></div>
                     <input class="btn" name="submitSpectator" type="submit" value="Register">
                     <?php
                     if (isset($_POST["submitSpectator"])) {

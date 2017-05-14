@@ -78,6 +78,7 @@
             }
         });
     </script>
+    <script src="assets/javascript/clientValidation.js"></script>
 </head>
 <body>
     <!-- Authorization -->
@@ -102,19 +103,24 @@
                 <option>Register new event</option>
             </select></h2>
             <div class="row" id="adminForm">
-                <form action="" method="POST">
+                <form action="" method="POST" onsubmit="return validate_admin()">
                     <div class="col-sm-8 compact-column">
                         <div class="white-cell">
                             <p>Username:</p>
-                            <input class="form-control" name="username" type="text"/>
+                            <input class="form-control" id="adminUsername" name="username" onchange="validate_adminUsername()" type="text"/>
+                            <div id="adminUsernameMessage"></div>
                             <p>Password:</p>
-                            <input class="form-control" name="password" type="password"/>
+                            <input class="form-control" id="adminPassword" name="password" onchange="validate_adminPassword()" type="password"/>
+                            <div id="adminPasswordMessage"></div>
                             <p>First name:</p>
-                            <input class="form-control" name="firstname" type="text"/>
+                            <input class="form-control" id="adminFirstname" name="firstname" onchange="validate_adminFirstname()" type="text"/>
+                            <div id="adminFirstnameMessage"></div>
                             <p>Last name:</p>
-                            <input class="form-control" name="lastname" type="text"/>
+                            <input class="form-control" id="adminLastname" name="lastname" onchange="validate_adminLastname()" type="text"/>
+                            <div id="adminLastnameMessage"></div>
                             <p>Phone number:</p>
-                            <input class="form-control" name="phoneNr" type="text"/>
+                            <input class="form-control" id="adminPhoneNr" name="phoneNr" onchange="validate_adminPhoneNr()" type="text"/>
+                            <div id="adminPhoneNrMessage"></div>
                             <input class="btn" name="submitAdmin" type="submit" value="Register">
                             <?php
                             if (isset($_POST["submitAdmin"])) {
@@ -134,17 +140,21 @@
                 </form>
             </div>
             <div class="row" id="athleteForm">
-                <form action="" method="POST">
+                <form action="" method="POST" onsubmit="return validate_athlete()">
                     <div class="col-sm-8 compact-column">
                         <div class="white-cell">
                             <p>First name:</p>
-                            <input class="form-control" name="firstname" type="text"/>
+                            <input class="form-control" id="athleteFirstname" name="firstname" onchange="validate_athleteFirstname()" type="text"/>
+                            <div id="athleteFirstnameMessage"></div>
                             <p>Last name:</p>
-                            <input class="form-control" name="lastname" type="text"/>
+                            <input class="form-control" id="athleteLastname" name="lastname" onchange="validate_athleteLastname()" type="text"/>
+                            <div id="athleteLastnameMessage"></div>
                             <p>Age:</p>
-                            <input class="form-control" name="age" type="number"/>
+                            <input class="form-control" id="athleteAge" name="age" onchange="validate_athleteAge()" type="number" min="16" max="50"/>
+                            <div id="athleteAgeMessage"></div>
                             <p>Nationality:</p>
-                            <input class="form-control" name="nationality" type="text"/>
+                            <input class="form-control" id="athleteNationality" name="nationality" onchange="validate_athleteNationality()" type="text"/>
+                            <div id="athleteNationalityMessage"></div>
                             <p>Gender:</p>
                             <select class="form-control" id="athleteGender" name="gender">
                                 <option>Male</option>
@@ -170,7 +180,7 @@
                 </form>
             </div>
             <div class="row" id="eventForm">
-                <form action="" method="POST">
+                <form action="" method="POST" onsubmit="return validate_event()">
                     <div class="col-sm-8 compact-column">
                         <div class="white-cell">
                             <p>Sport:</p>
@@ -185,9 +195,11 @@
                                 <option>Female</option>
                             </select>
                             <p>Description:</p>
-                            <input class="form-control" name="description" type="text"/>
+                            <input class="form-control" id="eventDescription" name="description" onchange="validate_eventDescription()" type="text"/>
+                            <div id="eventDescriptionMessage"></div>
                             <p>Date:</p>
-                            <input class="form-control" name="datetime" type="date"/>
+                            <input class="form-control" id="eventDatetime" name="datetime" onchange="validate_eventDatetime()" type="date" min="2019-01-01" max="2019-12-31"/>
+                            <div id="eventDatetimeMessage"></div>
                             <input class="btn" name="submitEvent" type="submit" value="Register">
                             <?php
                             if (isset($_POST["submitEvent"])) {

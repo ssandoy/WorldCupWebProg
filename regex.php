@@ -9,7 +9,7 @@
 // Kjører regex på alle felt og escaper spesialtegn med real_escape_string()
 $okRegex = true;
 // Fornavn
-$firstname = $_POST["fornavn"];
+$firstname = $_POST["firstname"];
 if (!preg_match("/^[A-Za-zÆØÅæøå\- ]{2,20}$/",$firstname)) {
     echo "Fornavn kan kun inneholde norske bokstaver, bindestrek og mellomrom, og må være mellom 2 og 20 tegn.<br><br>";
     $okRegex = false;
