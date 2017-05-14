@@ -595,7 +595,6 @@ function registerSpectator() {
         $spectator = new Spectator($firstname, $lastname, $phoneNr, $email, $username, $password);
 
         $okTransaction = true;
-        #TODO: Hente ut ID for Spectator her?
         if (!$spectator->save_to_db($db) || $db->affected_rows == 0) {
             $okTransaction = false;
         }
@@ -834,60 +833,4 @@ function checkout($eventID) {
     // Close database connection.
     $db->close();
 }
-
-//======================================================================
-// OTHER FUNCTIONS TODO: Fix and categorize these
-//======================================================================
-
-
-/*$
-
-
-
-function registerEventSpectator() {
-    #regEventSpectator via POST-calls and call save_to_DB-method.
-    $spectatorID = $db->real_escape_string($_POST["SpectatorID"]);
-    $eventID = $db->real_escape_string($_POST["EventID"]);
-
-    $eventSpectator = new EventSpectator($eventID, $spectatorID);
-
-    $okTransaction = true;
-    if (!$event->save_to_db($db) || $db->affected_rows == 0) {
-        $okTransaction = false;
-    }
-    if ($okTransaction) {
-        $db->commit();
-    } else {
-        $db->rollback();
-        ob_start();
-        //header("Location: feilmelding.html");
-        ob_flush();
-    }
-    //mysqli_close($db); #TODO: LUKKE HER?
-}*/
-
-/*  TODO: DO WE NEED THESE??
- *
- * function listAllSpectators() {
-
-    $sql = "Select username, firstname, lastname, phonenumber, email from Spectator ";
-    $resultat = $db->query($sql);
-
-    if($db->affected_rows>0)
-    {
-        $antallRader = $db->affected_rows;
-        echo "Antall rader funnet : $antallRader <br/>";
-        for ($i=0;$i<$antallRader;$i++)
-        {
-            $rad = $resultat->fetch_object();
-            echo $rad->username." ".$rad->firstname." ".$rad->lastname." ".$rad->phonenumber." ".$rad->email."<br/>";
-        }
-
-    }
-    else
-    {
-        echo "Fant ingen rader som oppfylte søket!";
-    }
-    $db->close();
-}*/
 ?>
