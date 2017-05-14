@@ -65,10 +65,11 @@
                         <thead>
                             <tr>
                                 <th class="col-sm-4">Name</th>
-                                <th class="col-sm-2">Age</th>
+                                <th class="col-sm-1">Age</th>
                                 <th class="col-sm-2">Nationality</th>
-                                <th class="col-sm-2">Gender</th>
+                                <th class="col-sm-1">Gender</th>
                                 <th class="col-sm-2">Sport</th>
+                                <th class="col-sm-2"></th>
                             </tr>
                         </thead>
                         <tbody id="athleteTable">

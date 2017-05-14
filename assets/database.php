@@ -12,8 +12,7 @@ function deleteAthlete() {
     if ($db->connect_error) {
         trigger_error($db->connect_error);
     }
-
-    // Get the ID of the logged in admin. T
+    // Get the ID of the logged in admin.
     $id =  $_POST['athleteID'];  //FIXME
     // Execute SQL query.
     $sql = "Delete FROM Athlete"
@@ -294,7 +293,7 @@ function populateEventSpectatorTable() {
             }
             echo "<tr><td>$dateString</td>"
                 . "<td>$gender $row->sport</td>"
-                . "<td>$row->description</td></tr>";
+                . "<td>$row->description</td>";
         }
     }
     // Close database connection.
@@ -308,7 +307,7 @@ function populateEventsTable() {
         trigger_error($db->connect_error);
     }
     // Execute SQL query.
-    $sql = "SELECT description, datetime, gender, sport "
+    $sql = "SELECT EventID, description, datetime, gender, sport "
          . "FROM Event "
          . "ORDER BY datetime ASC;";
 
@@ -325,9 +324,17 @@ function populateEventsTable() {
             } else {
                 $gender = "Women's";
             }
-            echo "<tr><td>$dateString</td>"
-                . "<td>$gender $row->sport</td>"
-                . "<td>$row->description</td></tr>";
+            if (isset($_SESSION["adminloggedin"]) || $_SESSION["adminloggedin"]) {
+                echo "<tr><td>$dateString</td>"
+                    . "<td>$gender $row->sport</td>"
+                    . "<td>$row->description</td>"
+                    . "<td><a href='edit.php?id=$row->EventID'><button class='btn btn-sm btn-warning'>Edit</button></a> "
+                    . "<a href='#'><button class='btn btn-sm btn-danger'>Delete</button></a></td></tr>";
+            } else {
+                echo "<tr><td>$dateString</td>"
+                    . "<td>$gender $row->sport</td>"
+                    . "<td>$row->description</td></tr>";
+            }
         }
     }
     // Close database connection.

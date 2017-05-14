@@ -42,9 +42,10 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th class="col-sm-3">Date</th>
-                                <th class="col-sm-3">Sport</th>
-                                <th class="col-sm-6">Event</th>
+                                <th class='col-sm-2'>Date</th>
+                                <th class='col-sm-3'>Sport</th>
+                                <th class='col-sm-5'>Event</th>
+                                <th class='col-sm-2'></th>
                             </tr>
                         </thead>
                         <tbody>

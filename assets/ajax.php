@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 // populateAthletesTable
 if (isset($_POST["eventID"])) {
@@ -11,15 +12,15 @@ if (isset($_POST["eventID"])) {
     $id = $_POST["eventID"];
     // Execute SQL query.
     if ($id == 0) {
-        $sql = "SELECT firstname, lastname, age, nationality, gender, sport "
+        $sql = "SELECT AthleteID, firstname, lastname, age, nationality, gender, sport "
             . "FROM Athlete "
-            . "ORDER BY lastname DESC;";
+            . "ORDER BY lastname ASC;";
     } else {
-        $sql = "SELECT firstname, lastname, age, nationality, gender, sport "
+        $sql = "SELECT AthleteID, firstname, lastname, age, nationality, gender, sport "
             . "FROM Athlete "
             . "JOIN EventAthlete ON Athlete.AthleteID = EventAthlete.Athlete "
             . "WHERE EventAthlete.Event LIKE $id "
-            . "ORDER BY lastname DESC;";
+            . "ORDER BY lastname ASC;";
     }
     $result = $db->query($sql);
     // Echo out all rows.
@@ -28,11 +29,22 @@ if (isset($_POST["eventID"])) {
         for ($i = 0; $i < $numRows; $i++) {
             $row = $result->fetch_object();
             $lastname = strtoupper($row->lastname);
-            echo "<tr><td><b>$lastname</b> $row->firstname</td>"
-                . "<td>$row->age</td>"
-                . "<td>$row->nationality</td>"
-                . "<td>$row->gender</td>"
-                . "<td>$row->sport</td></tr>";
+            if (isset($_SESSION["adminloggedin"]) || $_SESSION["adminloggedin"]) {
+                echo "<tr><td><b>$lastname</b> $row->firstname</td>"
+                    . "<td>$row->age</td>"
+                    . "<td>$row->nationality</td>"
+                    . "<td>$row->gender</td>"
+                    . "<td>$row->sport</td>"
+                    . "<td><a href='edit.php?id=$row->AthleteID'><button class='btn btn-sm btn-warning'>Edit</button></a> "
+                    . "<a href='#'><button class='btn btn-sm btn-danger'>Delete</button></a></td></tr>";
+            } else {
+                echo "<tr><td><b>$lastname</b> $row->firstname</td>"
+                    . "<td>$row->age</td>"
+                    . "<td>$row->nationality</td>"
+                    . "<td>$row->gender</td>"
+                    . "<td>$row->sport</td></tr>";
+            }
+
         }
     } else {
         echo "<tr><td>No athletes found.</td></tr>";
