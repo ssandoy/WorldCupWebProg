@@ -52,15 +52,38 @@ function editAdmin() {
     $username = $db->real_escape_string($_POST["username"]);
     $password = $db->real_escape_string($_POST["password"]);
 
-    $sql = "UPDATE Admin SET firstname=$firstname,lastname=$lastname,phonenumber=$phoneNr,username=$username, password=Password('$password') ";
-    $sql .= " WHERE AdminID = $id;";
+    $okRegex = true;
+    //REGEX
+    if (!preg_match("/^[A-Za-z\\- ]{2,20}$/",$firstname) ){
+        $okRegex = false;
+        echo "Firstname can only include english letters, hyphen (-) and space. It must be between 2 and 20 characters<br><br>";
+    } else if (!preg_match("/^[A-Za-z\\- ]{2,20}$/",$lastname)){
+        $okRegex = false;
+        echo "Lastname can only include english letters, hyphen (-) and space. It must be between 2 and 20 characters<br><br>";
+    } else if (!preg_match("/^[0-9]{8}$/",$phoneNr)) {
+        $okRegex = false;
+        echo "Phone number can only include digits. It must be between 8 and 15 characters<br><br>";
+    } else if (!preg_match("/^[A-Za-z\\-]{2,20}$/",$username)) {
+        $okRegex = false;
+        echo "Username can only include english letters, digits and hyphen (-). It must be between 6 and 20 characters<br><br>";
+    } else if (!preg_match("/^[A-Za-z0-9\\-]{6,20}$/",$password)) {
+        $okRegex = false;
+        echo "Password can only include english letters, digits and hyphen (-). It must be between 6 and 20 characters<br><br>";
+    }
 
-    $result = $db->query($sql);
 
-    if ($result === TRUE) {
-        echo "Record updated successfully";
-    } else {
-        echo "Error updating record: " . $db->error;
+    if($okRegex) {
+
+        $sql = "UPDATE Admin SET firstname=$firstname,lastname=$lastname,phonenumber=$phoneNr,username=$username, password=Password('$password') ";
+        $sql .= " WHERE AdminID = $id;";
+
+        $result = $db->query($sql);
+
+        if ($result === TRUE) {
+            echo "Record updated successfully";
+        } else {
+            echo "Error updating record: " . $db->error;
+        }
     }
     // Close database connection.
     $db->close();
@@ -80,15 +103,34 @@ function editEvent(){
     $eventGender = $db->real_escape_string($_POST["gender"]);
     $eventSport = $db->real_escape_string($_POST["sport"]);
 
-    $sql = "UPDATE Event SET description = '$description',datetime = '$datetime',gender = '$eventGender',sport = '$eventSport'";
-    $sql .= " WHERE EventID = $id;";
+    $okRegex = true;
+    //REGEX
+    if (!preg_match("/^[A-Za-z0-9\\- ]{2,255}$/",$description) ){
+        $okRegex = false;
+        echo "Description can only include english letters, digits, hyphen (-) and space. It must be between 2 and 255 characters<br><br>";
+    } if (!preg_match("/^[0-9]{2}\\/[0-9]{2}\\/2019$/",$datetime)){
+        echo "You must choose a date in 2019<br><br>";
+        $okRegex = false;
+    } if (!($gender == "Male" || $gender == "Female")) {
+        $okRegex = false;
+        echo "Invalid gender<br><br>";
+    } if (!($sport == "Cross-country" || $sport == "Nordic combined" || $sport == "Ski jumping")) {
+        $okRegex = false;
+        echo "Please choose one of our available sports<br><br>";
+    }
 
-    $result = $db->query($sql);
+    if($okRegex) {
 
-    if ($result === TRUE) {
-        echo "Record updated successfully";
-    } else {
-        echo "Error updating record: " . $db->error;
+        $sql = "UPDATE Event SET description = '$description',datetime = '$datetime',gender = '$eventGender',sport = '$eventSport'";
+        $sql .= " WHERE EventID = $id;";
+
+        $result = $db->query($sql);
+
+        if ($result === TRUE) {
+            echo "Record updated successfully";
+        } else {
+            echo "Error updating record: " . $db->error;
+        }
     }
     // Close database connection.
     $db->close();
@@ -110,16 +152,41 @@ function editAthlete(){
     $gender = $db->real_escape_string($_POST["gender"]);
     $sport = $db->real_escape_string($_POST["sport"]);
 
-    $sql = "UPDATE Athlete SET firstname='$firstname', lastname='$lastname', age='$age', nationality='$nationality', gender='$gender', sport='$sport'";
-    $sql .= " WHERE AthleteID = $id";
+    $okRegex = true;
+    //REGEX
+    if (!preg_match("/^[A-Za-z\\- ]{2,20}$/",$firstname) ){
+        $okRegex = false;
+        echo "Firstname can only include english letters, hyphen (-) and space. It must be between 2 and 20 characters<br><br>";
+    } if (!preg_match("/^[A-Za-z\\- ]{2,20}$/",$lastname)){
+        $okRegex = false;
+        echo "Lastname can only include english letters, hyphen (-) and space. It must be between 2 and 20 characters<br><br>";
+    }  if (!preg_match("/^[0-9]{2}$/",$age)) {
+        $okRegex = false;
+        echo "Age can only include digits. It must be between 8 and 15 characters<br><br>";
+    }  if (!preg_match("/^[A-Za-z\\- ]{2,20}$/",$nationality)) {
+        $okRegex = false;
+        echo "Nationality can only include english letters, digits and hyphen (-). It must be between 2 and 20 characters<br><br>";
+    } if (!($gender == "Male" || $gender == "Female")) {
+        $okRegex = false;
+        echo "Invalid gender<br><br>";
+    } if (!($sport == "Cross-country" || $sport == "Nordic combined" || $sport == "Ski jumping")) {
+        $okRegex = false;
+        echo "Please choose one of our available sports<br><br>";
+    }
 
-    $result = $db->query($sql);
+    if($okRegex) {
 
-    if ($result === TRUE) {
-        header("location:admin.php");
-        echo "Record updated successfully";
-    } else {
-        echo "Error updating record: " . $db->error;
+        $sql = "UPDATE Athlete SET firstname='$firstname', lastname='$lastname', age='$age', nationality='$nationality', gender='$gender', sport='$sport'";
+        $sql .= " WHERE AthleteID = $id";
+
+        $result = $db->query($sql);
+
+        if ($result === TRUE) {
+            header("location:admin.php");
+            echo "Record updated successfully";
+        } else {
+            echo "Error updating record: " . $db->error;
+        }
     }
     // Close database connection.
     $db->close();
@@ -696,7 +763,7 @@ function registerEvent() {
             header("Location:index.php");
         }
     }
-    
+
     // Close database connection.
     $db->close();
 }
