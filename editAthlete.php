@@ -41,7 +41,7 @@
     <div class="main-container">
         <div class="cell-container">
             <div class="row" id="athleteForm">
-                <form action="" method="POST" onsubmit="validate_athlete()">
+                <form action="" method="POST" onsubmit="return validate_athlete()">
                     <div class="col-sm-12 compact-column">
                         <div class="white-cell">
                             <?php populateAthleteForm(); ?>

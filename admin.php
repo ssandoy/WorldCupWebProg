@@ -11,6 +11,8 @@
     <link rel="stylesheet" type="text/css" href="assets/css/stylesheet.css"/>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed" rel="stylesheet">
+    <!-- Client validation -->
+    <script src="assets/javascript/clientValidation.js"></script>
     <!-- PHP -->
     <?php
     include("assets/database.php");
@@ -78,7 +80,6 @@
             }
         });
     </script>
-    <script src="assets/javascript/clientValidation.js"></script>
 </head>
 <body>
     <!-- Authorization -->

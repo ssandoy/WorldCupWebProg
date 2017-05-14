@@ -360,13 +360,15 @@ function populateEventForm()
                 $row = $result->fetch_object();
                 echo "<input class='form-control' name='eventID'  type='hidden' value='$id'></td>"
                     ."<p>Description:</p>"
-                    . "<input class='form-control' name='description' type='text' value='$row->description'></td>"
+                    . "<input class='form-control' id='eventDescription' name='description' onchange='validate_eventDescription()' type='text' value='$row->description'></td>"
+                    . "<div id='eventDescriptionMessage'></div>"
                     . "<p>Sport:</p>"
                     . "<input class='form-control' name='gender' type='text' value='$row->sport' readonly></td>"
                     . "<p>Gender:</p>"
                     . "<input class='form-control' name='sport' type='text' value='$row->gender' readonly></td>"
                     . "<p>Datetime</p>"
-                    . "<input class='form-control' name='datetime' type='text' value='$row->datetime'/>";
+                    . "<input class='form-control' id='eventDatetime' name='datetime' onchange='validate_eventDatetime()' type='text' value='$row->datetime'/>"
+                    . "<div id='eventDatetimeMessage'></div>";
             }
         }
         // Close database connection.
